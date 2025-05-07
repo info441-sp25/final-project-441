@@ -28,6 +28,8 @@ All communication between the React frontend and Express backend server will occ
 
 ### Data Flow
 
+![dataflow chart](https://github.com/info441-sp25/final-project-441/blob/main/pics_for_readme/dataflow_diagram.jpg?raw=true)
+
 The frontend sends REST API requests to the backend to fetch or post data (e.g., course searches, saved courses, reviews). The backend (Node.js + Express) processes the request, queries the MongoDB database, and returns a response to the frontend.
 
 ---
