@@ -24,7 +24,7 @@ We want to build this app because we have personally experienced the stress that
 
 ### Architectural Diagram
 
-![Architectural Diagram](https://github.com/info441-sp25/final-project-441/blob/main/pics_for_readme/Architectural Diagram.jpg)
+![Architectural Diagram](https://github.com/info441-sp25/final-project-441/blob/main/pics_for_readme/Architectural%20Diagram.jpg)
 
 All communication between the React frontend and Express backend server will occur via REST API requests. The backend then communicates with MongoDB to fetch and update data.
 
