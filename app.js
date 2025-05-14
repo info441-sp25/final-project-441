@@ -20,6 +20,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) =>{
+    req.models = models
+    next()
+})
+
 app.use('/users', usersRouter);
 
 export default app;
