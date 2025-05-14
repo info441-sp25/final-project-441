@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import models from './models.js'
 
-import usersRouter from './routes/users.js';
+import v1Router from './routes/api/v1/apiv1.js';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -25,6 +25,6 @@ app.use((req, res, next) =>{
     next()
 })
 
-app.use('/users', usersRouter);
+app.use('/api/v1', v1Router);
 
 export default app;
