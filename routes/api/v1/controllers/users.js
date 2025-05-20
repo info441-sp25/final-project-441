@@ -26,5 +26,24 @@ router.get('/saved', async (req, res) => {
   res.send(savedPreview)
 })
 
+// POST saved courses
+// @pre: POST api/v1/users/saved 
+// BODY: courseId, userId
+// @post: saves courseId to savedCourse arr for user 
+router.post('/saved', async (req, res) => {
+  try {
+    let user = req.models.User.findOne({userId: req.body.userId})
+    if (!user.savedCourses.includes(req.body.courseId)) {
+      user.savedCourses.push(req.body.courseId)
+      await user.save()
+      res.json({status: "success"})
+    } else {
+      res.json({status: "success", message: "class already saved by user"})
+    }
+  } catch (err) {
+    res.status(500).json({status: "error", error: err})
+  }
+  
+})
 
 export default router;
