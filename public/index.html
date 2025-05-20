@@ -1,14 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>!Graduated</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>!Graduated</h1>
 
-  <h2>Search for a Course</h2>
-  <input type="text" id="course-input" placeholder="e.g. INFO 441">
-  <button id="search-btn">Search</button>
+  <div id="search-container">
+    <input type="text" id="course-input" placeholder="Search for a course (e.g., INFO 441)">
+
+    <select id="department-select">
+      <option value="">All Departments</option>
+      <option value="INFO">INFO</option>
+      <option value="CSE">CSE</option>
+      <option value="STAT">STAT</option>
+      <option value="MATH">MATH</option>
+    </select>
+
+    <select id="quarter-select">
+      <option value="">All Quarters</option>
+      <option value="Autumn">Autumn</option>
+      <option value="Winter">Winter</option>
+      <option value="Spring">Spring</option>
+      <option value="Summer">Summer</option>
+    </select>
+
+    <button id="search-btn">Search</button>
+  </div>
 
   <div id="results"></div>
 
