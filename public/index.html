@@ -3,35 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <title>!Graduated</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="stylesheets/style.css">
 </head>
 <body>
-  <h1>!Graduated</h1>
+  <nav class="navbar">
+    <div class="logo">!Graduated</div>
+    <div class="tabs">
+      <button class="tab" onclick="showPage('home')">Home</button>
+      <button class="tab" onclick="showPage('saved')">Saved</button>
+      <button class="tab" onclick="showPage('courses')">Courses</button>
+      <button class="tab" onclick="showPage('profile')">Profile</button>
+    </div>
+  </nav>
 
-  <div id="search-container">
-    <input type="text" id="course-input" placeholder="Search for a course (e.g., INFO 441)">
+  <div id="home" class="page visible">
+    <div class="home-hero">
+      <h1 class="hero-title">!Graduated</h1>
+      <p class="hero-subtitle">Find your next class, easily.</p>
+    </div>
 
-    <select id="department-select">
-      <option value="">All Departments</option>
-      <option value="INFO">INFO</option>
-      <option value="CSE">CSE</option>
-      <option value="STAT">STAT</option>
-      <option value="MATH">MATH</option>
-    </select>
+    <div class="container">
+      <div id="search-container">
+        <input type="text" id="course-input" placeholder="Search for a course (e.g., INFO 441)">
+        <select id="department-select">
+          <option value="">All Departments</option>
+          <option value="INFO">INFO</option>
+          <option value="CSE">CSE</option>
+        </select>
+        <select id="quarter-select">
+          <option value="">All Quarters</option>
+          <option value="Autumn">Autumn</option>
+          <option value="Winter">Winter</option>
+          <option value="Spring">Spring</option>
+          <option value="Summer">Summer</option>
+        </select>
+        <button id="search-btn">Search</button>
+      </div>
 
-    <select id="quarter-select">
-      <option value="">All Quarters</option>
-      <option value="Autumn">Autumn</option>
-      <option value="Winter">Winter</option>
-      <option value="Spring">Spring</option>
-      <option value="Summer">Summer</option>
-    </select>
-
-    <button id="search-btn">Search</button>
+      <div id="results"></div>
+    </div>
   </div>
 
-  <div id="results"></div>
+  <div id="saved" class="page">
+    <div class="container">
+      <h2>Saved Courses</h2>
+      <div id="saved-results">You haven’t saved anything yet.</div>
+    </div>
+  </div>
 
-  <script src="app.js"></script>
+  <div id="courses" class="page">
+    <div class="container">
+      <h2>All Courses</h2>
+      <div id="courses-results">This will show your added courses or full listings.</div>
+    </div>
+  </div>
+
+  <div id="profile" class="page">
+    <div class="container">
+      <h2>My Profile</h2>
+      <div id="user-info">
+        <p><strong>Name:</strong> Sanjana Pavani</p>
+        <p><strong>Major:</strong> Informatics</p>
+        <p><strong>Bio:</strong> Still editing...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+      document.getElementById(id).classList.add('visible');
+    }
+  </script>
 </body>
 </html>

@@ -1,67 +1,133 @@
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  background: linear-gradient(to bottom right, #dff5ff, #f0eaff);
+  background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
   font-family: 'Segoe UI', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  min-height: 100vh;
 }
 
-h1 {
-  font-size: 3rem;
-  margin-bottom: 40px;
-  font-weight: 700;
-  color: #1c1c1e;
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #ff914d;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+  font-size: 1.6rem;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+}
+
+.tabs .tab {
+  background: white;
+  color: #ff914d;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.tabs .tab:hover {
+  background-color: #ffe0cc;
+}
+
+.page {
+  display: none;
+  padding: 40px 20px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.page.visible {
+  display: block;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.home-hero {
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0;
+  color: #222;
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  color: #555;
+  margin-bottom: 30px;
 }
 
 #search-container {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  background: white;
-  padding: 30px 40px;
-  border-radius: 20px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  gap: 15px;
+  margin-bottom: 30px;
 }
 
 input, select {
   padding: 15px 20px;
   font-size: 1rem;
-  border: 1px solid #ccc;
   border-radius: 12px;
-  width: 220px;
-  transition: all 0.2s ease;
+  border: 1px solid #ccc;
+  min-width: 240px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 input:focus, select:focus {
-  border-color: #4f46e5;
+  border-color: #ff914d;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 0 0 3px rgba(255, 145, 77, 0.2);
 }
 
 button {
-  padding: 15px 25px;
+  padding: 15px 30px;
   font-size: 1rem;
-  background-color: #4f46e5;
+  background-color: #ff914d;
   color: white;
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #3730a3;
+  background-color: #e27025;
 }
 
-#results {
-  margin-top: 40px;
-  width: 80%;
-  max-width: 800px;
+#results, #saved-results, #courses-results, #user-info {
   font-size: 1rem;
+  margin-top: 20px;
 }
