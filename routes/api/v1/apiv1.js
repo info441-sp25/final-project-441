@@ -6,3 +6,5 @@ import courseRouter from './controllers/courses.js';
 
 router.use('/user', userRouter);
 router.use('/course', courseRouter);
+
+export default router;
