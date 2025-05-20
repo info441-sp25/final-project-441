@@ -1,30 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>!Graduated</title>
-  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="stylesheets/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Navigation -->
   <nav class="navbar">
-    <div class="logo">!Graduated</div>
-    <div class="tabs">
-      <button class="tab" onclick="showPage('home')">Home</button>
-      <button class="tab" onclick="showPage('saved')">Saved</button>
-      <button class="tab" onclick="showPage('courses')">Courses</button>
-      <button class="tab" onclick="showPage('profile')">Profile</button>
-    </div>
+    <a href="/" class="logo">!Graduated</a>
+    <button class="btn-login" onclick="location.href='/auth/azure'">Log In</button>
   </nav>
 
-  <div id="home" class="page visible">
-    <div class="home-hero">
-      <h1 class="hero-title">!Graduated</h1>
-      <p class="hero-subtitle">Find your next class, easily.</p>
-    </div>
-
-    <div class="container">
-      <div id="search-container">
-        <input type="text" id="course-input" placeholder="Search for a course (e.g., INFO 441)">
+  <!-- Login Gate View -->
+  <div id="login-gate" class="login-gate visible">
+    <main class="center-content">
+      <h1 class="hero-title">Welcome to !Graduated</h1>
+      <p class="hero-subtitle">Plan your next class. Stress-free.</p>
+      <form id="search-container">
+        <input type="text" id="course-input" placeholder="Search for a course (e.g., INFO 441)" />
         <select id="department-select">
           <option value="">All Departments</option>
           <option value="INFO">INFO</option>
@@ -37,43 +32,71 @@
           <option value="Spring">Spring</option>
           <option value="Summer">Summer</option>
         </select>
-        <button id="search-btn">Search</button>
+        <button id="search-btn" type="submit">Search</button>
+      </form>
+    </main>
+  </div>
+
+  <!-- App View (Logged In) -->
+  <div id="app" class="app hidden">
+    <nav class="navbar">
+      <a href="/" class="logo">!Graduated</a>
+      <div class="tabs">
+        <button class="tab" onclick="showPage('home')">Home</button>
+        <button class="tab" onclick="showPage('saved')">Saved</button>
+        <button class="tab" onclick="showPage('courses')">Courses</button>
+        <button class="tab" onclick="showPage('profile')">Profile</button>
       </div>
+    </nav>
 
-      <div id="results"></div>
+    <div id="home" class="page visible">
+      <div class="home-hero">
+        <h1 class="hero-title">!Graduated</h1>
+        <p class="hero-subtitle">Find your next class, easily.</p>
+      </div>
+      <div class="container">
+        <div id="results" class="card-grid"></div>
+      </div>
     </div>
-  </div>
 
-  <div id="saved" class="page">
-    <div class="container">
-      <h2>Saved Courses</h2>
-      <div id="saved-results">You haven’t saved anything yet.</div>
+    <div id="saved" class="page">
+      <div class="container">
+        <h2>Saved Courses</h2>
+        <div id="saved-results" class="card-grid">You haven’t saved anything yet.</div>
+      </div>
     </div>
-  </div>
 
-  <div id="courses" class="page">
-    <div class="container">
-      <h2>All Courses</h2>
-      <div id="courses-results">This will show your added courses or full listings.</div>
+    <div id="courses" class="page">
+      <div class="container">
+        <h2>All Courses</h2>
+        <div id="courses-results" class="card-grid">This will show your added courses or full listings.</div>
+      </div>
     </div>
-  </div>
 
-  <div id="profile" class="page">
-    <div class="container">
-      <h2>My Profile</h2>
-      <div id="user-info">
-        <p><strong>Name:</strong> Sanjana Pavani</p>
-        <p><strong>Major:</strong> Informatics</p>
-        <p><strong>Bio:</strong> Still editing...</p>
+    <div id="profile" class="page">
+      <div class="container">
+        <h2>My Profile</h2>
+        <div id="user-info">
+          <p><strong>Name:</strong> Sanjana Pavani</p>
+          <p><strong>Major:</strong> Informatics</p>
+          <p><strong>Bio:</strong> Still editing</p>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
     function showPage(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
-      document.getElementById(id).classList.add('visible');
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("visible"));
+      document.getElementById(id).classList.add("visible");
     }
+
+    const isLoggedIn = false;
+
+    window.onload = () => {
+      document.getElementById('login-gate').classList.toggle('hidden', isLoggedIn);
+      document.getElementById('app').classList.toggle('hidden', !isLoggedIn);
+    };
   </script>
 </body>
 </html>
