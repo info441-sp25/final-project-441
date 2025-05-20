@@ -2,9 +2,35 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import models from './models.js'
+import sessions from 'express-session';
 
+import models from './models.js';
 import v1Router from './routes/api/v1/apiv1.js';
+
+// To install msal-node-wrapper, run:
+// npm install "https://gitpkg.now.sh/kylethayer/ms-identity-javascript-nodejs-tutorial-msal-node-v2-/Common/msal-node-wrapper?main"
+
+import WebAppAuthProvider from 'msal-node-wrapper';
+// original msal-node-wrapper code:
+// https://github.com/Azure-Samples/ms-identity-javascript-nodejs-tutorial/tree/main/Common/msal-node-wrapper
+
+const authConfig = {
+  auth: {
+    clientId: "fab2d7fa-4c42-4795-9b28-988cb921fc88",
+    authority: "https://login.microsoftonline.com/f6b6dd5b-f02f-441a-99a0-162ac5060bd2",
+    clientSecret: "rce8Q~48osBe7EBaQ5i3J1JD5t6Yqgy7G0cfpbG0",
+    redirectUri: "https://graduated-q0lj.onrender.com/redirect"
+  },
+  system: {
+    loggerOptions: {
+      loggerCallback(loglevel, message, containsPii) {
+        console.log(message);
+      },
+      piiLoggingEnabled: false,
+      logLevel: 3
+    }
+  }
+};
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -12,19 +38,52 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-var app = express();
+const app = express();
+app.enable('trust proxy');
 
+// Standard middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req, res, next) =>{
-    req.models = models
-    next()
-})
+// Session setup
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+  secret: "this-is-a-secret-key-for-session-use-only",
+  saveUninitialized: true,
+  cookie: { maxAge: oneDay },
+  resave: false
+}));
 
+// Inject models into requests
+app.use((req, res, next) => {
+  req.models = models;
+  next();
+});
+
+// Azure AD Auth setup
+const authProvider = await WebAppAuthProvider.WebAppAuthProvider.initialize(authConfig);
+app.use(authProvider.authenticate());
+
+// Login + Logout routes
+app.get('/signin', (req, res, next) => {
+  return req.authContext.login({
+    postLoginRedirectUri: "/"
+  })(req, res, next);
+});
+
+app.get('/signout', (req, res, next) => {
+  return req.authContext.logout({
+    postLogoutRedirectUri: "/"
+  })(req, res, next);
+});
+
+// Auth error handler
+app.use(authProvider.interactionErrorHandler());
+
+// API v1 routes
 app.use('/api/v1', v1Router);
 
 export default app;
