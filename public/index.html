@@ -11,7 +11,7 @@
   <!-- Navigation -->
   <nav class="navbar">
     <a href="/" class="logo">!Graduated</a>
-    <button class="btn-login" onclick="location.href='/auth/azure'">Log In</button>
+    <a href="/signin" class="btn-login">Log In</a>
   </nav>
 
   <!-- Login Gate View -->
@@ -92,12 +92,32 @@
       document.getElementById(id).classList.add("visible");
     }
 
-    const isLoggedIn = false;
+    async function checkLoginStatus() {
+      try {
+        const res = await fetch('/users/myIdentity');
+        const data = await res.json();
 
-    window.onload = () => {
-      document.getElementById('login-gate').classList.toggle('hidden', isLoggedIn);
-      document.getElementById('app').classList.toggle('hidden', !isLoggedIn);
-    };
+        const isLoggedIn = data && data.name;
+
+        // Toggle visibility based on login status
+        document.getElementById('login-gate').classList.toggle('hidden', isLoggedIn);
+        document.getElementById('app').classList.toggle('hidden', !isLoggedIn);
+
+        // Update profile info dynamically
+        if (isLoggedIn) {
+          const userInfoDiv = document.getElementById('user-info');
+          userInfoDiv.innerHTML = `
+            <p><strong>Name:</strong> ${data.name}</p>
+            <p><strong>Major:</strong> Informatics</p>
+            <p><strong>Bio:</strong> Still editing</p>
+          `;
+        }
+      } catch (error) {
+        console.error("Login check failed:", error);
+      }
+    }
+
+    window.onload = checkLoginStatus;
   </script>
 </body>
 </html>
