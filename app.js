@@ -95,4 +95,9 @@ app.use(authProvider.interactionErrorHandler());
 // API v1 routes
 app.use('/api/v1', v1Router);
 
+// Logged-in user identity endpoint
+app.get('/users/myIdentity', (req, res) => {
+  res.json(req.authContext?.account || null);
+});
+
 export default app;
