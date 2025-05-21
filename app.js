@@ -63,7 +63,7 @@ app.use(sessions({
   resave: false,
   cookie: {
     maxAge: oneDay,
-    secure: true,
+    secure: auto,
     sameSite: 'none'
   }
 }));
