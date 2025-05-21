@@ -43,14 +43,18 @@ const __dirname = dirname(__filename);
 const app = express();
 app.enable('trust proxy');
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://graduated-q0lj.onrender.com');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
 // Standard middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.enable('trust proxy');
 
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
@@ -59,8 +63,8 @@ app.use(sessions({
   resave: false,
   cookie: {
     maxAge: oneDay,
-    secure: true,      // required on Render for HTTPS
-    sameSite: 'none'   // allows cookies to persist through Azure redirect
+    secure: true,
+    sameSite: 'none'
   }
 }));
 
@@ -76,23 +80,22 @@ app.use(authProvider.authenticate());
 
 // Login + Logout routes
 app.get('/signin', (req, res, next) => {
-    return req.authContext.login({
-      postLoginRedirectUri: "/"
-    })(req, res, next);
-  });
+  return req.authContext.login({
+    postLoginRedirectUri: "/"
+  })(req, res, next);
+});
 
-  // Alias login route for /auth/azure
-  app.get('/auth/azure', (req, res, next) => {
-    return req.authContext.login({
-      postLoginRedirectUri: "/"
-    })(req, res, next);
-  });
+app.get('/auth/azure', (req, res, next) => {
+  return req.authContext.login({
+    postLoginRedirectUri: "/"
+  })(req, res, next);
+});
 
-  app.get('/signout', (req, res, next) => {
-    return req.authContext.logout({
-      postLogoutRedirectUri: "/"
-    })(req, res, next);
-  });
+app.get('/signout', (req, res, next) => {
+  return req.authContext.logout({
+    postLogoutRedirectUri: "/"
+  })(req, res, next);
+});
 
 // Auth error handler
 app.use(authProvider.interactionErrorHandler());
