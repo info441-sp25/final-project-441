@@ -50,13 +50,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Session setup
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
   secret: "this-is-a-secret-key-for-session-use-only",
   saveUninitialized: true,
-  cookie: { maxAge: oneDay },
-  resave: false
+  resave: false,
+  cookie: {
+    maxAge: oneDay,
+    secure: true,       // Required for HTTPS (Render)
+    sameSite: 'none'    // Allows cross-origin cookie after Azure redirect
+  }
 }));
 
 // Inject models into requests
