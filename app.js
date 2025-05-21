@@ -85,12 +85,6 @@ app.get('/signin', (req, res, next) => {
   })(req, res, next);
 });
 
-app.get('/auth/azure', (req, res, next) => {
-  return req.authContext.login({
-    postLoginRedirectUri: "/"
-  })(req, res, next);
-});
-
 app.get('/signout', (req, res, next) => {
   return req.authContext.logout({
     postLogoutRedirectUri: "/"
