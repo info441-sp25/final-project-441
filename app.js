@@ -69,16 +69,23 @@ app.use(authProvider.authenticate());
 
 // Login + Logout routes
 app.get('/signin', (req, res, next) => {
-  return req.authContext.login({
-    postLoginRedirectUri: "/"
-  })(req, res, next);
-});
+    return req.authContext.login({
+      postLoginRedirectUri: "/"
+    })(req, res, next);
+  });
 
-app.get('/signout', (req, res, next) => {
-  return req.authContext.logout({
-    postLogoutRedirectUri: "/"
-  })(req, res, next);
-});
+  // Alias login route for /auth/azure
+  app.get('/auth/azure', (req, res, next) => {
+    return req.authContext.login({
+      postLoginRedirectUri: "/"
+    })(req, res, next);
+  });
+
+  app.get('/signout', (req, res, next) => {
+    return req.authContext.logout({
+      postLogoutRedirectUri: "/"
+    })(req, res, next);
+  });
 
 // Auth error handler
 app.use(authProvider.interactionErrorHandler());
