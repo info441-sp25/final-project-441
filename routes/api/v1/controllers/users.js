@@ -1,6 +1,12 @@
 import express from 'express';
 var router = express.Router();
 
+
+router.get('/myIdentity', (req, res) => {
+  let name = req.session.account.name
+  res.json(name)
+})
+
 // GET saved courses
 // @pre: GET api/v1/users/saved?userID=...
 // @post: returns JSON arr of saved course info
