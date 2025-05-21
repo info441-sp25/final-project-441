@@ -50,6 +50,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.enable('trust proxy');
+
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
   secret: "this-is-a-secret-key-for-session-use-only",
@@ -57,8 +59,8 @@ app.use(sessions({
   resave: false,
   cookie: {
     maxAge: oneDay,
-    secure: true,       // Required for HTTPS (Render)
-    sameSite: 'none'    // Allows cross-origin cookie after Azure redirect
+    secure: true,      // required on Render for HTTPS
+    sameSite: 'none'   // allows cookies to persist through Azure redirect
   }
 }));
 
