@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
@@ -18,7 +20,7 @@ const authConfig = {
   auth: {
     clientId: "fab2d7fa-4c42-4795-9b28-988cb921fc88",
     authority: "https://login.microsoftonline.com/f6b6dd5b-f02f-441a-99a0-162ac5060bd2",
-    clientSecret: "rce8Q~48osBe7EBaQ5i3J1JD5t6Yqgy7G0cfpbG0",
+    clientSecret: process.env.AZURE_CLIENT_SECRET,
     redirectUri: "https://graduated-q0lj.onrender.com/redirect"
   },
   system: {
@@ -69,16 +71,23 @@ app.use(authProvider.authenticate());
 
 // Login + Logout routes
 app.get('/signin', (req, res, next) => {
-  return req.authContext.login({
-    postLoginRedirectUri: "/"
-  })(req, res, next);
-});
+    return req.authContext.login({
+      postLoginRedirectUri: "/"
+    })(req, res, next);
+  });
 
-app.get('/signout', (req, res, next) => {
-  return req.authContext.logout({
-    postLogoutRedirectUri: "/"
-  })(req, res, next);
-});
+  // Alias login route for /auth/azure
+  app.get('/auth/azure', (req, res, next) => {
+    return req.authContext.login({
+      postLoginRedirectUri: "/"
+    })(req, res, next);
+  });
+
+  app.get('/signout', (req, res, next) => {
+    return req.authContext.logout({
+      postLogoutRedirectUri: "/"
+    })(req, res, next);
+  });
 
 // Auth error handler
 app.use(authProvider.interactionErrorHandler());
