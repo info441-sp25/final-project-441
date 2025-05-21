@@ -21,7 +21,9 @@ const authConfig = {
     clientId: "fab2d7fa-4c42-4795-9b28-988cb921fc88",
     authority: "https://login.microsoftonline.com/f6b6dd5b-f02f-441a-99a0-162ac5060bd2",
     clientSecret: process.env.AZURE_CLIENT_SECRET,
-    redirectUri: "https://graduated-q0lj.onrender.com/redirect"
+    redirectUri: "/redirect"
+        // redirectUri: "https://graduated-q0lj.onrender.com/redirect"
+
   },
   system: {
     loggerOptions: {
@@ -99,7 +101,9 @@ app.use('/api/v1', v1Router);
 
 // Logged-in user identity endpoint
 app.get('/users/myIdentity', (req, res) => {
-  res.json(req.authContext?.account || null);
+  console.log("get my identity")
+  console.log(req.session?.account)
+  res.json(req.session?.account || null);
 });
 
 export default app;
