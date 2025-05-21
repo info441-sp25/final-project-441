@@ -43,10 +43,10 @@
     <nav class="navbar">
       <a href="/" class="logo">!Graduated</a>
       <div class="tabs">
-        <button class="tab" onclick="showPage('home')">Home</button>
-        <button class="tab" onclick="showPage('saved')">Saved</button>
-        <button class="tab" onclick="showPage('courses')">Courses</button>
-        <button class="tab" onclick="showPage('profile')">Profile</button>
+        <button class="tab" onclick="goHome"">Home</button>
+        <button class="tab" onclick="goSaved">Saved</button>
+        <button class="tab" onclick="goCourses"">Courses</button>
+        <button class="tab" onclick="goProfile"">Profile</button>
       </div>
     </nav>
 
@@ -60,63 +60,7 @@
       </div>
     </div>
 
-    <div id="saved" class="page">
-      <div class="container">
-        <h2>Saved Courses</h2>
-        <div id="saved-results" class="card-grid">You haven’t saved anything yet.</div>
-      </div>
-    </div>
-
-    <div id="courses" class="page">
-      <div class="container">
-        <h2>All Courses</h2>
-        <div id="courses-results" class="card-grid">This will show your added courses or full listings.</div>
-      </div>
-    </div>
-
-    <div id="profile" class="page">
-      <div class="container">
-        <h2>My Profile</h2>
-        <div id="user-info">
-          <p><strong>Name:</strong> Sanjana Pavani</p>
-          <p><strong>Major:</strong> Informatics</p>
-          <p><strong>Bio:</strong> Still editing</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
-    function showPage(id) {
-      document.querySelectorAll(".page").forEach(p => p.classList.remove("visible"));
-      document.getElementById(id).classList.add("visible");
-    }
-
-    async function checkLoginStatus() {
-      try {
-        const res = await fetch('/users/myIdentity');
-        const data = await res.json();
-
-        const isLoggedIn = data && data.name;
-
-        // Toggle visibility based on login status
-        document.getElementById('login-gate').classList.toggle('hidden', isLoggedIn);
-        document.getElementById('app').classList.toggle('hidden', !isLoggedIn);
-
-        // Update profile info dynamically
-        if (isLoggedIn) {
-          const userInfoDiv = document.getElementById('user-info');
-          userInfoDiv.innerHTML = `
-            <p><strong>Name:</strong> ${data.name}</p>
-            <p><strong>Major:</strong> Informatics</p>
-            <p><strong>Bio:</strong> Still editing</p>
-          `;
-        }
-      } catch (error) {
-        console.error("Login check failed:", error);
-      }
-    }
-
     window.onload = checkLoginStatus;
   </script>
 </body>

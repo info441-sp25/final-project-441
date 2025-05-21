@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>!Graduated</title>
+  <link rel="stylesheet" href="stylesheets/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="/" class="logo">!Graduated</a>
+    <a href="/signin" class="btn-login">Log In</a>
+  </nav>
+
+  <!-- App View (Logged In) -->
+  <div id="app" class="app hidden">
+    <nav class="navbar">
+      <a href="/" class="logo">!Graduated</a>
+      <div class="tabs">
+        <button class="tab" onclick="goHome"">Home</button>
+        <button class="tab" onclick="goSaved">Saved</button>
+        <button class="tab" onclick="goCourses"">Courses</button>
+        <button class="tab" onclick="goProfile"">Profile</button>
+      </div>
+    </nav>
+
+    <div id="saved" class="page">
+      <div class="container">
+        <h2>Saved Courses</h2>
+        <div id="saved-results" class="card-grid">You haven’t saved anything yet.</div>
+      </div>
+    </div>
+
+  <script>
+    window.onload = checkLoginStatus;
+  </script>
+</body>
+</html>

@@ -1,15 +1,40 @@
-function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
-    document.getElementById(id).classList.add('visible');
+async function checkLoginStatus() {
+    try {
+      const res = await fetch('/users/myIdentity');
+      const data = await res.json();
 
-    switch(id) {
-        case 'saved':
-            showSaved() // pass in userId
-            break
+      const isLoggedIn = data && data.name;
+
+      // Toggle visibility based on login status
+      document.getElementById('login-gate').classList.toggle('hidden', isLoggedIn);
+      document.getElementById('app').classList.toggle('hidden', !isLoggedIn);
+
+      // Update profile info dynamically
+      if (isLoggedIn) {
+        const userInfoDiv = document.getElementById('user-info');
+        userInfoDiv.innerHTML = `
+          <p><strong>Name:</strong> ${data.name}</p>
+          <p><strong>Major:</strong> Informatics</p>
+          <p><strong>Bio:</strong> Still editing</p>
+        `;
+      }
+    } catch (error) {
+      console.error("Login check failed:", error);
     }
-}
+  }
 
-async function showSaved(userId) {
+// function showPage(id) {
+//     document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+//     document.getElementById(id).classList.add('visible');
+
+//     switch(id) {
+//         case 'saved':
+//             showSaved() // pass in userId
+//             break
+//     }
+// }
+
+async function goSaved(userId) {
     let savedJSON = await fetchJSON(`api/v1/user/saved?userId=${userId}`);
     let savedHTML = savedJSON.map(post => {
         return `
@@ -20,6 +45,7 @@ async function showSaved(userId) {
         // onclick='saveCourse'
     })
     document.getElementById("saved-results").value = savedHTML;
+    location.href = "/saved.html"
 }
 
 async function saveCourse(courseId, userId) {
@@ -28,3 +54,17 @@ async function saveCourse(courseId, userId) {
         body: {courseId: courseId, userId: userId}
     })
 }
+
+function goHome() {
+    location.href = "/index.html"
+}
+
+function goCourses() {
+    location.href = "/courses.html"
+}
+
+function goProfile() {
+    location.href = "/profile.html"
+}
+
+
