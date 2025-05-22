@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>!Graduated</title>
+  <link rel="stylesheet" href="stylesheets/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+</head>
+<body onload="init()">
+  <!-- Navigation -->
+  <!-- <nav class="navbar">
+    <a href="/" class="logo">!Graduated</a>
+    <a href="/signin" class="btn-login">Log In</a>
+  </nav> -->
+
+  <!-- App View (Logged In) -->
+  <div id="app" class="app">
+    <nav class="navbar">
+      <a href="/" class="logo">!Graduated</a>
+      <div class="tabs">
+        <button class="tab" onclick="goHome">Home</button>
+        <button class="tab" onclick="goSaved">Saved</button>
+        <button class="tab" onclick="goCourses">Courses</button>
+        <button class="tab" onclick="goProfile">Profile</button>
+      </div>
+    </nav>
+
+    <div id="saved" class="page">
+      <div class="container">
+        <h2 id="courseCode"></h2>
+        <div id="courseNameLong"></div>
+        <div id="desc"></div>
+        <div id="misc"></div>
+        
+      </div>
+    </div>
+
+    <script>
+      // on page load, check session for current coursecode, call coursedetails 
+      // endpoint to get course data, and fill in html with those fields
+      async function init()  {
+        // document.getElementById("courseNameLong").innerText = "Loading...";
+        const courseCode = res.session.courseCode; // uses req.sessions, not cache rn (but could)
+        let response = await fetch('/api/v1/courses/courseDetails?courseCode='+courseCode)
+        let courseJson = await response.json()
+
+        // Only included what I saw in the api swagger documentation,
+        // but if all the stuff we have in the project proposal (prereqs, course sites,
+        // tags) exist we can add those too
+        document.getElementById("courseCode").innerText = courseJson.courseCode
+        document.getElementById("courseNameLong").innerText = courseJson.courseName
+        document.getElementById("desc").innerText = courseJson.courseDescription
+        
+        let areas = "" 
+        let potentialAreas = ["Diversity","EnglishComposition","IndividualsAndSocieties","NaturalWorld",
+        "QuantitativeAndSymbolicReasoning", "VisualLiteraryAndPerformingArts", "Writing"] // old names idk if they're updated
+        potentialAreas.forEach(area => {
+          if(courseJson.GeneralEducationRequirements[area]) {
+            areas += (area + ", ")
+          }
+        })
+        areas = areas.substr(0, areas.length() - 2)
+
+        const miscString = `${courseJson.maximumCredit} Credits | ${areas} | ${courseJson.courseCampus}`
+        document.getElementById("misc").innerText = miscString
+
+
+      }
+    </script>
+</body>
+</html>
