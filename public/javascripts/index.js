@@ -28,8 +28,7 @@ async function checkLoginStatus() {
   }
 
 async function goSaved(userId) {
-    let res = await fetchJSON(`api/v1/user/saved?userId=${userId}`);
-    let savedJSON = res.json()
+    let savedJSON = await fetchJSON(`api/v1/user/saved?userId=${userId}`);
     let savedHTML = savedJSON.map(post => {
         return `
         <div class="container">
@@ -42,14 +41,16 @@ async function goSaved(userId) {
     location.href = "/saved.html"
 }
 
-async function searchCourse() {
-    let res = await fetchJson(`api/v1/courses`)
-    let data = res.json()
+async function searchCourse(event) {
+    event.preventDefault()
+    location.href = "/search_results.html"
+    // let res = await fetchJson(`api/v1/courses`)
+    // let data = res.json()
 
-    document.getElementById('search-container').classList.toggle('hidden')
-    document.getElementById('results-container').classList.toggle('hidden')
+    // document.getElementById('search-container').classList.toggle('hidden')
+    // document.getElementById('results-container').classList.toggle('hidden')
 
-    document.getElementById('result')
+    // document.getElementById('result')
 }
 
 async function saveCourse(courseId, userId) {
