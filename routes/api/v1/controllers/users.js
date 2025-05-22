@@ -3,8 +3,16 @@ var router = express.Router();
 
 
 router.get('/myIdentity', (req, res) => {
-  let name = req.session.account.name
-  res.json(name)
+  if(req.session.isAuthenticated) {
+    res.json({status: "loggedin", 
+      userInfo: {
+        name: req.session.account.name, 
+        username: req.session.account.username
+      }
+    })
+  } else {
+    res.json({status: "loggedout"})
+  }
 })
 
 // GET saved courses

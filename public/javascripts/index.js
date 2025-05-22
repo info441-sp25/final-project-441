@@ -3,14 +3,14 @@ async function checkLoginStatus() {
       const res = await fetch('/users/myIdentity');
       const data = await res.json();
 
-      const isLoggedIn = data && data.name;
+      const isLoggedIn = data.status == "loggedin"
 
-      // Toggle visibility based on login status
-      document.getElementById('login-gate').classList.toggle('hidden', isLoggedIn);
-      document.getElementById('app').classList.toggle('hidden', !isLoggedIn);
-
-      // Update profile info dynamically
       if (isLoggedIn) {
+        document.getElementById('tabs').classList.toggle('hidden', isLoggedIn)
+        document.getElementById('signin').classList.toggle('hidden', isLoggedIn)
+        document.getElementById('signout').classList.toggle('hidden', isLoggedIn)
+
+        // Update profile info dynamically
         const userInfoDiv = document.getElementById('user-info');
         userInfoDiv.innerHTML = `
           <p><strong>Name:</strong> ${data.name}</p>
@@ -18,6 +18,10 @@ async function checkLoginStatus() {
           <p><strong>Bio:</strong> Still editing</p>
         `;
       }
+
+    //   // Toggle visibility based on login status
+    //   document.getElementById('login-gate').classList.toggle('hidden', isLoggedIn);
+    //   document.getElementById('app').classList.toggle('hidden', !isLoggedIn);
     } catch (error) {
       console.error("Login check failed:", error);
     }
