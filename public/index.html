@@ -6,13 +6,14 @@
   <link rel="stylesheet" href="stylesheets/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <script src="javascripts/index.js"></script>
 </head>
 <body onload="checkLoginStatus()">
 
 <div id="app">
   <nav class="navbar">
     <a href="/" class="logo">!Graduated</a>
-    <div class="tabs" id="tabs">
+    <div class="tabs hidden" id="tabs">
       <button class="tab" onclick="goHome()"">Home</button>
       <button class="tab" onclick="goSaved()">Saved</button>
       <button class="tab" onclick="goCourses()"">Courses</button>
@@ -42,13 +43,8 @@
           <option value="Spring">Spring</option>
           <option value="Summer">Summer</option>
         </select>
-        <button id="search-btn" type="submit" onclick="searchCourse()">Search</button>
+        <button id="search-btn" type="submit" onclick="searchCourse(event)">Search</button>
       </form>
-
-
-      <div id="result-container" class="container hidden">
-        <div id="results" class="card-grid"></div>
-      </div>
     </main>
   </div>
 </div>
