@@ -46,9 +46,11 @@
           <option value="Spring">Spring</option>
           <option value="Summer">Summer</option>
         </select>
-        <button id="search-btn" type="submit">Search</button>
+        <button id="search-btn" type="submit" onclick="searchCourse()">Search</button>
       </form>
-      <div class="container hidden">
+
+
+      <div id="result-container" class="container hidden">
         <div id="results" class="card-grid"></div>
       </div>
     </main>

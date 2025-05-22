@@ -27,19 +27,9 @@ async function checkLoginStatus() {
     }
   }
 
-// function showPage(id) {
-//     document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
-//     document.getElementById(id).classList.add('visible');
-
-//     switch(id) {
-//         case 'saved':
-//             showSaved() // pass in userId
-//             break
-//     }
-// }
-
 async function goSaved(userId) {
-    let savedJSON = await fetchJSON(`api/v1/user/saved?userId=${userId}`);
+    let res = await fetchJSON(`api/v1/user/saved?userId=${userId}`);
+    let savedJSON = res.json()
     let savedHTML = savedJSON.map(post => {
         return `
         <div class="container">
@@ -50,6 +40,16 @@ async function goSaved(userId) {
     })
     document.getElementById("saved-results").value = savedHTML;
     location.href = "/saved.html"
+}
+
+async function searchCourse() {
+    let res = await fetchJson(`api/v1/courses`)
+    let data = res.json()
+
+    document.getElementById('search-container').classList.toggle('hidden')
+    document.getElementById('results-container').classList.toggle('hidden')
+
+    document.getElementById('result')
 }
 
 async function saveCourse(courseId, userId) {
