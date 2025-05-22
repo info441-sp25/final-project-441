@@ -22,8 +22,6 @@ const authConfig = {
     authority: "https://login.microsoftonline.com/f6b6dd5b-f02f-441a-99a0-162ac5060bd2",
     clientSecret: process.env.AZURE_CLIENT_SECRET,
     redirectUri: "/redirect"
-        // redirectUri: "https://graduated-q0lj.onrender.com/redirect"
-
   },
   system: {
     loggerOptions: {
@@ -82,6 +80,7 @@ app.use(authProvider.authenticate());
 
 // Login + Logout routes
 app.get('/signin', (req, res, next) => {
+  console.log("SIGNIN triggered");
   return req.authContext.login({
     postLoginRedirectUri: "/"
   })(req, res, next);
@@ -99,11 +98,18 @@ app.use(authProvider.interactionErrorHandler());
 // API v1 routes
 app.use('/api/v1', v1Router);
 
-// Logged-in user identity endpoint
 app.get('/users/myIdentity', (req, res) => {
-  console.log("get my identity")
-  console.log(req.session?.account)
-  res.json(req.session?.account || null);
+  console.log("get my identity");
+  console.log("session account =", req.session?.account);
+  if (req.session?.account) {
+    res.json({
+      status: "loggedin",
+      name: req.session.account.name,
+      username: req.session.account.username
+    });
+  } else {
+    res.json({ status: "loggedout" });
+  }
 });
 
 export default app;
