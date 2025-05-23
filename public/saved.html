@@ -2,39 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>!Graduated</title>
+  <title>Saved Courses - !Graduated</title>
   <link rel="stylesheet" href="stylesheets/style.css" />
+  <link rel="stylesheet" href="stylesheets/saved.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <script src="javascripts/index.js"></script>
-
 </head>
-<body onload="checkLoginStatus()"">
-  <!-- Navigation -->
-  <!-- <nav class="navbar">
-    <a href="/" class="logo">!Graduated</a>
-    <a href="/signin" class="btn-login">Log In</a>
-  </nav> -->
 
-  <!-- App View (Logged In) -->
+<body onload="checkLoginStatus()">
   <div id="app" class="app">
     <nav class="navbar">
-        <a href="/" class="logo">!Graduated</a>
-        <div class="tabs hidden" id="tabs">
-          <button class="tab" onclick="goHome()"">Home</button>
-          <button class="tab" onclick="goSaved()">Saved</button>
-          <button class="tab" onclick="goCourses()"">Courses</button>
-          <button class="tab" onclick="goProfile()"">Profile</button>
-        </div>
-        <a href="/signin" id="login-btn" class="btn-login">Log In</a>
-        <a href="/signout" id="logout-btn" class="btn-login hidden">Log Out</a>
+      <a href="/" class="logo">!Graduated</a>
+      <div class="tabs hidden" id="tabs">
+        <button class="tab" onclick="goHome()">Home</button>
+        <button class="tab" onclick="goSaved()">Saved</button>
+        <button class="tab" onclick="goCourses()">Courses</button>
+        <button class="tab" onclick="goProfile()">Profile</button>
+      </div>
+      <a href="/signin" id="login-btn" class="btn-login">Log In</a>
+      <a href="/signout" id="logout-btn" class="btn-login hidden">Log Out</a>
     </nav>
 
-    <div id="saved" class="page">
+    <div class="page">
       <div class="container">
         <h2>Saved Courses</h2>
-        <div id="saved-results" class="card-grid">You haven’t saved anything yet.</div>
+        <div id="saved-results" class="card-grid">Loading your saved courses...</div>
       </div>
     </div>
+
+    <script src="javascripts/index.js"></script>
+    <script src="javascripts/saved.js"></script>
+  </div>
 </body>
 </html>

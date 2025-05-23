@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>!Graduated</title>
-  <link rel="stylesheet" href="stylesheets/style.css" />
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="stylesheets/index.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <script src="javascripts/index.js"></script>
@@ -14,10 +15,10 @@
   <nav class="navbar">
     <a href="/" class="logo">!Graduated</a>
     <div class="tabs hidden" id="tabs">
-      <button class="tab" onclick="goHome()"">Home</button>
+      <button class="tab" onclick="goHome()">Home</button>
       <button class="tab" onclick="goSaved()">Saved</button>
-      <button class="tab" onclick="goCourses()"">Courses</button>
-      <button class="tab" onclick="goProfile()"">Profile</button>
+      <button class="tab" onclick="goCourses()">Courses</button>
+      <button class="tab" onclick="goProfile()">Profile</button>
     </div>
     <a href="/signin" id="login-btn" class="btn-login">Log In</a>
     <a href="/signout" id="logout-btn" class="btn-login hidden">Log Out</a>
@@ -48,28 +49,5 @@
     </main>
   </div>
 </div>
-  
- 
-  <!-- App View (Logged In) -->
-  <!-- <div id="app" class="app hidden">
-    <nav class="navbar">
-      <a href="/" class="logo">!Graduated</a>
-      <div class="tabs">
-        <button class="tab" onclick="goHome"">Home</button>
-        <button class="tab" onclick="goSaved">Saved</button>
-        <button class="tab" onclick="goCourses"">Courses</button>
-        <button class="tab" onclick="goProfile"">Profile</button>
-      </div>
-    </nav>
-
-    <div id="home" class="page visible">
-      <div class="home-hero">
-        <h1 class="hero-title">!Graduated</h1>
-        <p class="hero-subtitle">Find your next class, easily.</p>
-      </div>
-      <div class="container">
-        <div id="results" class="card-grid"></div>
-      </div>
-    </div>  -->
 </body>
 </html>
