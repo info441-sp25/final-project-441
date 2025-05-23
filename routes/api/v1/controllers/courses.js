@@ -51,10 +51,8 @@ router.get("/search", async(req, res) => {
         const {course, department, quarter} = req.query
         let courseId = course.replace(/\s/g, '')
 
-        console.log(course)
-
         const courseObj = await req.models.Class.findOne({courseId: courseId})
-        console.log(courseObj)
+
         if (courseObj) {
         const courseJson = {
             _id: courseObj._id,
@@ -74,13 +72,14 @@ router.get("/search", async(req, res) => {
             const finalDepartment = department || course.split(" ")[0]
             const course_num = course.split(" ")[1]
 
-            const apiRes = await fetch(`https://ws.admin.washington.edu/student/v5/course/2025/${finalQuarter}/${finalDepartment}/${course_num}`, {
+            const apiRes = await fetch(`https://ws.admin.washington.edu/student/v5/course/2025,${finalQuarter},${finalDepartment},${course_num}`, {
                 method: 'GET', 
                 headers: {
                     Authorization : 'Bearer 3E406D01-E38F-473C-B255-113E5BD77339', 
                     Accept : 'application/json'
                 }
             })
+
 
             if (!apiRes.ok) {
                return res.status(404).json({error: "no course found"})
@@ -91,7 +90,7 @@ router.get("/search", async(req, res) => {
             const courseJson = {
                 courseId: courseId, 
                 courseNumber: course_num, 
-                courtTitle: data.CourseTitle, 
+                courseTitle: data.CourseTitleLong, 
                 avgRating: 0, 
                 courseCollege: data.CourseCollege, 
                 credits: data.MinimumTermCredit,
