@@ -9,13 +9,12 @@ await mongoose.connect('mongodb+srv://laurak11:INFO441password@cluster0.e6e59z1.
 console.log("successfully conected to mongodb")
 
 const classSchema = new mongoose.Schema({
-    courseId: Number,
-    courseCode: String, 
-    courseName: String, 
+    courseId: String, // full course name eg 'INFO441', no spaces
+    courseNumber: String, 
+    courseTitle: String, 
     avgRating: Number, 
-    prereqs: [Number], 
-    prevQuarters: [String], 
-    courseWebsites: [String], 
+    courseCollege: String, //engineering, info, etc.
+    credits: Number,
     tags: [String], 
     reviews: [Number]
 })
