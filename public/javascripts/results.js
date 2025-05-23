@@ -29,3 +29,8 @@ async function loadContent() {
     `
     // TO DO: Add save icon that will add course to saved page for user
 }
+
+async function fetchJSON(route) {
+        const res = await fetch(route);
+        return await res.json();
+      }

@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     quarter !== null && filter.push({prevQuarters: quarter}) 
 
     try {
-        const filteredCourses = await req.models.Course.find({$and : filter}).lean()
+        const filteredCourses = await req.models.Class.find({$and : filter}).lean()
         res.status(200).json(filteredCourses)    
     } catch (e) {
         console.log("ERROR: \n" + e)
@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 router.get('/courseDetails', async (req, res) => {
     const {courseCode} = req.query
     try {
-        const course = await req.models.Course.findOne({courseCode: courseCode}).lean()
+        const course = await req.models.Class.findOne({courseCode: courseCode}).lean()
         res.status(200).json(course)    
     } catch (e) {
         console.log("ERROR: \n" + e)
@@ -46,12 +46,15 @@ router.get('/courseDetails', async (req, res) => {
 
 //makes the api call and saves to db if course isn't found
 router.get("/search", async(req, res) => {
+    console.log("in search")
     try {
         const {course, department, quarter} = req.query
         let courseId = course.replace(/\s/g, '')
 
-        const courseObj = await req.models.Course.findOne({courseId: courseId})
+        console.log(course)
 
+        const courseObj = await req.models.Class.findOne({courseId: courseId})
+        console.log(courseObj)
         if (courseObj) {
         const courseJson = {
             _id: courseObj._id,
@@ -66,6 +69,7 @@ router.get("/search", async(req, res) => {
         }
         return res.json({course: courseJson, create: false})
         } else { // course is not already in db
+            console.log("calling uw api")
             const finalQuarter = quarter || 'Spring'
             const finalDepartment = department || course.split(" ")[0]
             const course_num = course.split(" ")[1]
@@ -79,7 +83,7 @@ router.get("/search", async(req, res) => {
             })
 
             if (!apiRes.ok) {
-                res.status(404).json({error: "no course found"})
+               return res.status(404).json({error: "no course found"})
             }
 
             let data = await apiRes.json()
@@ -94,7 +98,7 @@ router.get("/search", async(req, res) => {
                 tags: [], 
                 reviews: []
             }
-            res.json({course: courseJson, create: true})
+            return  res.json({course: courseJson, create: true})
         }
     } catch (err) {
         res.status(500).json({status: "error", error: err})
@@ -114,7 +118,7 @@ router.post('/', async (req, res) => {
             reviews
           } = req.body;
     
-        const newCourse = new req.models.Course({
+        const newCourse = new req.models.Class({
             courseId,
             courseNumber,
             courseTitle, 
