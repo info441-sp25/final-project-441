@@ -4,7 +4,7 @@ async function loadContent() {
     // const department = params.get("department")
     // const quarter = params.get("quarter")
 
-    let res = await fetchJSON(`api/v1/course/search?${params.toString()}`)
+    let res = await fetchJSON(`/api/v1/course/search?${params.toString()}`)
     let course
     if (res.status == 404 || res.status == 500) {
         course = ""
@@ -12,7 +12,7 @@ async function loadContent() {
         course = res.course
     }
     if (res.create) {
-        await fetchJSON(`api/v1/course/`, {
+        await fetchJSON(`/api/v1/course`, {
             method: 'POST', 
             body: JSON.stringify(course)
         })
@@ -27,4 +27,5 @@ async function loadContent() {
         ` <p>No matching courses found</p>`}
     </div>
     `
+    // TO DO: Add save icon that will add course to saved page for user
 }
