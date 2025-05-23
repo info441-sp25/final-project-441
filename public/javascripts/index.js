@@ -3,7 +3,8 @@ function toggleLoginUI(isLoggedIn) {
   document.getElementById('tabs')?.classList.toggle('hidden', !isLoggedIn);
   document.getElementById('login-btn')?.classList.toggle('hidden', isLoggedIn);
   document.getElementById('logout-btn')?.classList.toggle('hidden', !isLoggedIn);
-  document.getElementById('login-gate')?.classList.toggle('hidden', isLoggedIn);
+  const loginGate = document.getElementById('login-gate');
+  if (loginGate) loginGate.classList.toggle('hidden', isLoggedIn);
 }
 
 async function checkLoginStatus() {
@@ -38,7 +39,7 @@ async function checkLoginStatus() {
 async function goSaved() {
   const res = await fetch('/users/myIdentity');
   const data = await res.json();
-  const userId = data?.username;
+  const userId = data?.userInfo?.username;
 
   if (!userId) {
     alert("You must be logged in to view saved courses.");
@@ -87,17 +88,17 @@ async function saveCourse(courseId, userId) {
   await fetchJSON(`api/v1/users/save`, {
     method: "POST",
     body: {courseId: courseId, userId: userId}
-  })
+  });
 }
 
 function goHome() {
-  location.href = "/index.html"
+  location.href = "/index.html";
 }
 
 function goCourses() {
-  location.href = "/courses.html"
+  location.href = "/courses.html";
 }
 
 function goProfile() {
-  location.href = "/profile.html"
+  location.href = "/profile.html";
 }
