@@ -23,11 +23,21 @@ async function loadContent() {
         ${course ? 
         `<h3>${course.courseId}: ${course.courseTitle}</h3>
         <p>College: ${course.courseCollege}</p>
-        <p>Credits: ${course.credits}` : 
+        <p>Credits: ${course.credits}
+        <span> <button id=${course.courseId} onclick=selectCourse(event)> View Course </button>` : 
         ` <p>No matching courses found</p>`}
     </div>
     `
     // TO DO: Add save icon that will add course to saved page for user
+}
+
+async function selectCourse(event) {
+    console.log("selectCourse")
+    const courseId = event.id; // FIND WAY TO GET COURSE ID FROM DYNAMIC HTML ELEMENT
+
+    location.href = `/course_detail.html?${courseId}`;
+
+    
 }
 
 async function fetchJSON(route) {
