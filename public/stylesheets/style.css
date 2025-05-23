@@ -167,12 +167,12 @@ body {
 }
 
 /* App Page Styles */
-.app {
+/* .app {
   padding-top: 90px;
-}
+} */
 
 .page {
-  display: none;
+  /* display: none; */
   padding: 40px 20px;
   width: 100%;
   max-width: 1000px;

@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="stylesheets/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <script src="javascripts/index.js"></script>
+
 </head>
 <body onload="checkLoginStatus()">
  
@@ -23,7 +25,7 @@
     </nav>
 
     <div class="page">
-        <button onclick="history.back()"> Back to Search</button>
+        <button class="tab" onclick="history.back()"> Back to Search</button>
       <div class="container">
         <h2>Matching Courses</h2>
         <div id="courses-results" class="card-grid">This will show your search results.</div>

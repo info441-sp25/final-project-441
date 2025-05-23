@@ -7,8 +7,8 @@ async function checkLoginStatus() {
 
       if (isLoggedIn) {
         document.getElementById('tabs').classList.toggle('hidden', isLoggedIn)
-        document.getElementById('signin').classList.toggle('hidden', isLoggedIn)
-        document.getElementById('signout').classList.toggle('hidden', isLoggedIn)
+        document.getElementById('login-btn').classList.toggle('hidden', isLoggedIn)
+        document.getElementById('logout-btn').classList.toggle('hidden', isLoggedIn)
 
         // Update profile info dynamically
         const userInfoDiv = document.getElementById('user-info');
