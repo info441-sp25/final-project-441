@@ -3,8 +3,6 @@ function toggleLoginUI(isLoggedIn) {
   document.getElementById('tabs')?.classList.toggle('hidden', !isLoggedIn);
   document.getElementById('login-btn')?.classList.toggle('hidden', isLoggedIn);
   document.getElementById('logout-btn')?.classList.toggle('hidden', !isLoggedIn);
-  const loginGate = document.getElementById('login-gate');
-  if (loginGate) loginGate.classList.toggle('hidden', isLoggedIn);
 }
 
 async function fetchJSON(route) {
