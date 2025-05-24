@@ -12,10 +12,7 @@ async function loadContent() {
         course = res.course
     }
     if (res.create) {
-        await fetchJSON(`/api/v1/course`, {
-            method: 'POST', 
-            body: JSON.stringify(course)
-        })
+        postClass(course)
     }
 
     document.getElementById("courses-results").innerHTML = `
@@ -23,12 +20,20 @@ async function loadContent() {
         ${course ? 
         `<h3>${course.courseId}: ${course.courseTitle}</h3>
         <p>College: ${course.courseCollege}</p>
-        <p>Credits: ${course.credits}
+        <p>Credits: ${course.credits}</p>
         <span> <button id=${course.courseId} onclick=selectCourse(event)> View Course </button>` : 
         ` <p>No matching courses found</p>`}
     </div>
     `
     // TO DO: Add save icon that will add course to saved page for user
+}
+
+// sends POST request to save course in the databse
+async function postClass(course) {
+    await fetchJSON(`/api/v1/course`, {
+        method: 'POST', 
+        body: course
+    })
 }
 
 async function selectCourse(event) {
