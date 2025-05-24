@@ -54,23 +54,30 @@ router.get("/search", async(req, res) => {
         const courseObj = await req.models.Class.findOne({courseId: courseId})
 
         if (courseObj) {
-        const courseJson = {
-            _id: courseObj._id,
-            courseId: courseObj.courseId,
-            courseNumber: courseObj.courseNumber, 
-            courseTitle: courseObj.courseTitle, 
-            avgRating: courseObj.avgRating, 
-            courseCollege: courseObj.courseCollege, 
-            credits: courseObj.credits, 
-            tags: courseObj.tags, 
-            reviews: courseObj.reviews
-        }
-        return res.json({course: courseJson, create: false})
+            console.log("found in db")
+            const courseJson = {
+                _id: courseObj._id,
+                courseId: courseObj.courseId,
+                courseNumber: courseObj.courseNumber, 
+                courseTitle: courseObj.courseTitle, 
+                avgRating: courseObj.avgRating, 
+                courseCollege: courseObj.courseCollege, 
+                credits: courseObj.credits, 
+                tags: courseObj.tags, 
+                reviews: courseObj.reviews
+            }
+            return res.json({course: courseJson, create: false})
         } else { // course is not already in db
             console.log("calling uw api")
+            let processed_course = course
+            if(!course.includes(" ")) {
+                processed_course = (
+                    course.slice(0, course.length - 3) + " " + course.slice(course.length - 3)
+                )
+            }
             const finalQuarter = quarter || 'Spring'
-            const finalDepartment = department || course.split(" ")[0]
-            const course_num = course.split(" ")[1]
+            const finalDepartment = department || processed_course.split(" ")[0]
+            const course_num = processed_course.split(" ")[1]
 
             const apiRes = await fetch(`https://ws.admin.washington.edu/student/v5/course/2025,${finalQuarter},${finalDepartment},${course_num}`, {
                 method: 'GET', 
@@ -93,6 +100,8 @@ router.get("/search", async(req, res) => {
                 courseTitle: data.CourseTitleLong, 
                 avgRating: 0, 
                 courseCollege: data.CourseCollege, 
+                description: data.CourseDescription,
+                genEdReqs: data.GeneralEducationRequirements,
                 credits: data.MinimumTermCredit,
                 tags: [], 
                 reviews: []

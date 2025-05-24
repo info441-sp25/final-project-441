@@ -33,11 +33,15 @@
 
     <div id="saved" class="page">
       <div class="container">
-        <h2 id="courseCode"></h2>
-        <div id="courseNameLong"></div>
+        <h1 id="courseCode"></h1>
+        <h2 id="courseNameLong"></h2>
         <div id="desc"></div>
-        <div id="misc"></div>
-        
+        <br>
+        <div id="misc"></div>        
+      </div>
+      <br>
+      <div class="container">
+        <h3> Reviews will go here! </h3>
       </div>
     </div>
 
@@ -45,11 +49,17 @@
       // on page load, check session for current coursecode, call coursedetails 
       // endpoint to get course data, and fill in html with those fields
       async function init()  {
+        console.log("in detail init")
         document.getElementById("courseNameLong").innerText = "Loading...";
         const params = new URLSearchParams(window.location.search)
-        const {courseId} = params;
+        console.log(params)
+        // const {courseId} = params;
 
-        const courseInfo = await fetchJSON(`/api/v1/course/search?course=${courseId}`)
+        const res = await fetchJSON(`/api/v1/course/search?${params.toString()}`)
+        const courseInfo = res.course
+        console.log(courseInfo)
+
+        // console.log(courseInfo.course.courseId)
 
 
 
@@ -60,24 +70,58 @@
         // Only included what I saw in the api swagger documentation,
         // but if all the stuff we have in the project proposal (prereqs, course sites,
         // tags) exist we can add those too
-        document.getElementById("courseCode").innerText = courseInfo.courseCode
-        document.getElementById("courseNameLong").innerText = courseInfo.courseName
-        document.getElementById("desc").innerText = courseInfo.courseDescription
+        document.getElementById("courseCode").innerText = courseInfo.courseId.toUpperCase()
+        document.getElementById("courseNameLong").innerText = courseInfo.courseTitle
+        document.getElementById("desc").innerText = courseInfo.description
         
         let areas = "" 
         let potentialAreas = ["Diversity","EnglishComposition","IndividualsAndSocieties","NaturalWorld",
         "QuantitativeAndSymbolicReasoning", "VisualLiteraryAndPerformingArts", "Writing"] // old names idk if they're updated
+        console.log(potentialAreas)
+
+        let newAreas = {
+          "VisualLiteraryAndPerformingArts":"A&H",
+          "IndividualsAndSocieties":"SSc",
+          "NaturalWorld":"NSc",
+          "QuantitativeAndSymbolicReasoning":"RSN",
+          "Diversity": "Diversity",
+          "EnglishComposition":"English Composition",
+          "Writing":"Writing"
+        }
+        
         potentialAreas.forEach(area => {
-          if(courseInfo.GeneralEducationRequirements[area]) {
-            areas += (area + ", ")
+          if (courseInfo.genEdReqs[area]) {
+            areas += newAreas[area] + ", ";
+            console.log(areas); 
           }
         })
-        areas = areas.substr(0, areas.length() - 2)
 
-        const miscString = `${courseInfo.maximumCredit} Credits | ${areas} | ${courseInfo.courseCampus}`
-        document.getElementById("misc").innerText = miscString
+        console.log(areas)
+
+        areas = areas.slice(0, areas.length - 2)
+        console.log(areas)
 
 
+        const revs = avg(courseInfo.reviews)
+        console.log(revs)
+        console.log(courseInfo.credits)
+
+        const miscString = `${courseInfo.credits} Credits |  ${areas} | Avg. Rating: ${revs}`
+        document.getElementById("misc").innerHTML = `<b> ${miscString} </b>`
+
+
+      }
+
+      function avg(arr) {
+        if (arr.length == 0) {
+          return "N/A"
+        }
+        let sum = 0
+        let i = 0
+        while(i < arr.length() - 1) {
+          sum += arr[i]
+        }
+        return ((sum * 1.0) / (i * 1.0))
       }
     </script>
 </body>

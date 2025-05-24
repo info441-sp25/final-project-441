@@ -21,7 +21,7 @@ async function loadContent() {
         `<h3>${course.courseId}: ${course.courseTitle}</h3>
         <p>College: ${course.courseCollege}</p>
         <p>Credits: ${course.credits}</p>
-        <span> <button id=${course.courseId} onclick=selectCourse(event)> View Course </button>` : 
+        <span> <button id=${course.courseId} onclick=selectCourse(this.id)> View Course </button>` : 
         ` <p>No matching courses found</p>`}
     </div>
     `
@@ -30,17 +30,17 @@ async function loadContent() {
 
 // sends POST request to save course in the databse
 async function postClass(course) {
-    await fetchJSON(`/api/v1/course`, {
+    await fetch(`/api/v1/course`, {
         method: 'POST', 
         body: course
     })
 }
 
-async function selectCourse(event) {
+async function selectCourse(id) {
     console.log("selectCourse")
-    const courseId = event.id; // FIND WAY TO GET COURSE ID FROM DYNAMIC HTML ELEMENT
+    // const courseId = event.id; // FIND WAY TO GET COURSE ID FROM DYNAMIC HTML ELEMENT
 
-    location.href = `/course_detail.html?${courseId}`;
+    location.href = `/course_detail.html?course=${id}`;
 
     
 }
