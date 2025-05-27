@@ -17,19 +17,24 @@ async function checkLoginStatus() {
 
     const isLoggedIn = data?.status === "loggedin";
 
-    if (isLoggedIn) {
-      toggleLoginUI(isLoggedIn);
+    toggleLoginUI(isLoggedIn);
 
-      // Update profile info dynamically
+    if (isLoggedIn && data.userInfo) {
+      const { name, major = "Not provided", bio = "Not provided" } = data.userInfo;
+
       const userInfoDiv = document.getElementById('user-info');
       if (userInfoDiv) {
         userInfoDiv.innerHTML = `
           <p><strong>Name:</strong> ${data.name}</p>
-          <p><strong>Major:</strong> Informatics</p>
-          <p><strong>Bio:</strong> Still editing</p>
+          <p><strong>Major:</strong> ${major}</p>
+          <p><strong>Bio:</strong> ${bio}</p>
         `;
       }
     }
+  } catch (error) {
+    console.error("Login check failed:", error);
+  }
+}
 
     //   // Toggle visibility based on login status
     //   document.getElementById('login-gate').classList.toggle('hidden', isLoggedIn);
