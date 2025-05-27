@@ -25,7 +25,7 @@ async function checkLoginStatus() {
       const userInfoDiv = document.getElementById('user-info');
       if (userInfoDiv) {
         userInfoDiv.innerHTML = `
-          <p><strong>Name:</strong> ${data.name}</p>
+          <p><strong>Name:</strong> ${name}</p>
           <p><strong>Major:</strong> ${major}</p>
           <p><strong>Bio:</strong> ${bio}</p>
         `;
