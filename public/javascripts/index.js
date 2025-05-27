@@ -88,7 +88,7 @@ async function searchCourse(event) {
 }
 
 async function saveCourse(courseId, userId) {
-  await fetchJSON(`api/v1/users/save`, {
+  await fetch(`api/v1/users/save`, {
     method: "POST",
     body: {courseId: courseId, userId: userId}
   });
