@@ -5,7 +5,7 @@ async function loadContent() {
     // const quarter = params.get("quarter")
 
     let data = await fetch(`/api/v1/course/search?${params.toString()}`)
-    let res = data.json()
+    let res = await data.json()
 
     let course
     if (res.status == 404 || res.status == 500) {
@@ -18,7 +18,8 @@ async function loadContent() {
         console.log(res.course)
         await fetch(`/api/v1/course`, {
             method: 'POST', 
-            body: JSON.stringify(res.course)
+            body: JSON.stringify(res.course), 
+            headers: {'Content-Type': 'application/json'}
         })
     }
 

@@ -115,6 +115,8 @@ router.get("/search", async(req, res) => {
 
 router.post('/', async (req, res) => {
     try {
+
+        console.log("this is the body", req.body)
         const {
             courseId,
             courseNumber,
@@ -136,6 +138,8 @@ router.post('/', async (req, res) => {
             tags, 
             reviews
         })
+
+        console.log("this is the new course", newCourse)
 
         await newCourse.save()
         res.json({status: "success", message: "post saved"})
