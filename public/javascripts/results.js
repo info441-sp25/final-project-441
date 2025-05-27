@@ -15,6 +15,7 @@ async function loadContent() {
     }
     if (res.create) {
         console.log("entered this if statement")
+        console.log(res.course)
         postClass(course)
     }
 
