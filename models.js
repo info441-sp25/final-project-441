@@ -10,36 +10,36 @@ console.log("successfully conected to mongodb")
 
 const classSchema = new mongoose.Schema({
     courseId: String, // full course name eg 'INFO441', no spaces
-    courseNumber: String, 
-    courseTitle: String, 
-    avgRating: Number, 
+    courseNumber: String,
+    courseTitle: String,
+    avgRating: Number,
     courseCollege: String, //engineering, info, etc.
     credits: Number,
-    tags: [String], 
+    tags: [String],
     reviews: [Number]
 })
 
 const userSchema = new mongoose.Schema({
-    userId: Number, 
-    username: String, 
-    major: String, 
-    biography: String, 
-    profileImageUrl: String, 
-    savedCourses: [Number], 
-    coursesTaken: [Number], 
+    userId: Number,
+    username: String,
+    major: String,
+    biography: String,
+    profileImageUrl: String,
+    savedCourses: [Number],
+    coursesTaken: [Number],
     reviews: [Number]
 })
 
 const reviewSchema = new mongoose.Schema({
-    reviewId: Number, 
-    numStars: Number, 
+    reviewId: Number,
+    numStars: Number,
     comment: String
 })
 
-// model 
+// model
 models.Class = mongoose.model('Class', classSchema)
 models.User = mongoose.model('User', userSchema)
 models.Review = mongoose.model('Review', reviewSchema)
 console.log("finished creating models")
 
-export default models 
+export default models

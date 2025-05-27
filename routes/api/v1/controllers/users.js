@@ -1,17 +1,42 @@
 import express from 'express';
-var router = express.Router();
+import models from '../models/models.js';
 
+const router = express.Router();
 
-router.get('/myIdentity', (req, res) => {
-  if(req.session.isAuthenticated) {
-    res.json({status: "loggedin", 
+router.get("/users/myIdentity", async (req, res) => {
+  if (!req.session.isAuthenticated) {
+    return res.json({ status: "loggedout" });
+  }
+
+  const { username } = req.session.account;
+
+  try {
+    let user = await models.User.findOne({ username });
+
+    // Auto-create the user on first login
+    if (!user) {
+      user = await models.User.create({
+        username,
+        major: "",
+        biography: "",
+        savedCourses: [],
+        coursesTaken: [],
+        reviews: []
+      });
+    }
+
+    res.json({
+      status: "loggedin",
       userInfo: {
-        name: req.session.account.name, 
-        username: req.session.account.username
+        name: user.username,
+        username: user.username,
+        major: user.major || "Not provided",
+        bio: user.biography || "Not provided"
       }
-    })
-  } else {
-    res.json({status: "loggedout"})
+    });
+  } catch (error) {
+    console.error("Failed to fetch user identity:", error);
+    res.status(500).json({ status: "error", message: "Something went wrong" });
   }
 })
 
@@ -41,9 +66,9 @@ router.get('/saved', async (req, res) => {
 })
 
 // POST saved courses
-// @pre: POST api/v1/users/saved 
+// @pre: POST api/v1/users/saved
 // BODY: courseId, userId
-// @post: saves courseId to savedCourse arr for user 
+// @post: saves courseId to savedCourse arr for user
 router.post('/saved', async (req, res) => {
   try {
     let user = req.models.User.findOne({userId: req.body.userId})
@@ -57,7 +82,7 @@ router.post('/saved', async (req, res) => {
   } catch (err) {
     res.status(500).json({status: "error", error: err})
   }
-  
+
 })
 
 export default router;
