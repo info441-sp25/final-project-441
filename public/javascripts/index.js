@@ -39,10 +39,6 @@ async function checkLoginStatus() {
     //   // Toggle visibility based on login status
     //   document.getElementById('login-gate').classList.toggle('hidden', isLoggedIn);
     //   document.getElementById('app').classList.toggle('hidden', !isLoggedIn);
-  } catch (error) {
-    console.error("Login check failed:", error);
-  }
-}
 
 async function goSaved() {
   const res = await fetch('/users/myIdentity');
