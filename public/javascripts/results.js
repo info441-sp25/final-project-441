@@ -16,7 +16,10 @@ async function loadContent() {
     if (res.create) {
         console.log("entered this if statement")
         console.log(res.course)
-        postClass(course)
+        await fetch(`/api/v1/course`, {
+            method: 'POST', 
+            body: JSON.stringify(res.course)
+        })
     }
 
     document.getElementById("courses-results").innerHTML = `
@@ -32,13 +35,6 @@ async function loadContent() {
     // TO DO: Add save icon that will add course to saved page for user
 }
 
-// sends POST request to save course in the databse
-async function postClass(course) {
-    await fetch(`/api/v1/course`, {
-        method: 'POST', 
-        body: course
-    })
-}
 
 async function selectCourse(id) {
     console.log("selectCourse")
