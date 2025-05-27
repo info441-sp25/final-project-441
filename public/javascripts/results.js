@@ -4,7 +4,9 @@ async function loadContent() {
     // const department = params.get("department")
     // const quarter = params.get("quarter")
 
-    let res = await fetchJSON(`/api/v1/course/search?${params.toString()}`)
+    let data = await fetch(`/api/v1/course/search?${params.toString()}`)
+    let res = data.json()
+
     let course
     if (res.status == 404 || res.status == 500) {
         course = ""
@@ -12,6 +14,7 @@ async function loadContent() {
         course = res.course
     }
     if (res.create) {
+        console.log("entered this if statement")
         postClass(course)
     }
 
@@ -45,7 +48,7 @@ async function selectCourse(id) {
     
 }
 
-async function fetchJSON(route) {
-        const res = await fetch(route);
-        return await res.json();
-      }
+// async function fetchJSON(route) {
+//         const res = await fetch(route);
+//         return await res.json();
+//       }

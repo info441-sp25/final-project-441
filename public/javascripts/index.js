@@ -8,7 +8,7 @@ function toggleLoginUI(isLoggedIn) {
 async function fetchJSON(route) {
         const res = await fetch(route);
         return await res.json();
-      }
+}
 
 async function checkLoginStatus() {
   try {
@@ -49,7 +49,8 @@ async function goSaved() {
     return;
   }
 
-  let savedJSON = await fetchJSON(`/api/v1/users/saved?userId=${userId}`);
+  let saved = await fetch(`/api/v1/users/saved?userId=${userId}`);
+  let savedJSON = saved.json();
   let savedHTML = savedJSON.map(post => {
     return `
       <div class="container">
