@@ -5,11 +5,6 @@ function toggleLoginUI(isLoggedIn) {
   document.getElementById('logout-btn')?.classList.toggle('hidden', !isLoggedIn);
 }
 
-async function fetchJSON(route) {
-        const res = await fetch(route);
-        return await res.json();
-}
-
 async function checkLoginStatus() {
   try {
     const res = await fetch('/users/myIdentity');

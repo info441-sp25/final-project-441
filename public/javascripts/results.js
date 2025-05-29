@@ -11,7 +11,7 @@ async function loadContent() {
     if (res.status == 404 || res.status == 500) {
         course = ""
     } else {
-        course = res.course
+        course = [res.course]
     }
     if (res.create) {
         console.log("entered this if statement")
@@ -23,19 +23,27 @@ async function loadContent() {
         })
     }
 
-    document.getElementById("courses-results").innerHTML = `
+    // TO DO: make courses appear as grid instead of as separate columns
+    document.getElementById("courses-results").innerHTML = course.map(course => `
     <div class="card">
         ${course ? 
-        `<h3>${course.courseId}: ${course.courseTitle}</h3>
+        `<div>
+            <h3>${course.courseId}: ${course.courseTitle}</h3>
+            <button onclick="toggleBookmark(${course.courseId})"> </button>
+        </div>
         <p>College: ${course.courseCollege}</p>
         <p>Credits: ${course.credits}</p>
-        <span> <button id=${course.courseId} onclick=selectCourse(this.id)> View Course </button>` : 
+        <button id=${course.courseId} onclick=selectCourse(this.id)> View Course </button>` : 
         ` <p>No matching courses found</p>`}
     </div>
-    `
-    // TO DO: Add save icon that will add course to saved page for user
+    `)
 }
 
+function toggleBookmark(courseId) {
+    // check if the course is saved for the user
+    // if yes: remove course (unfilled icon)
+    // if no: add course (filled icon)
+}
 
 async function selectCourse(id) {
     console.log("selectCourse")
@@ -45,8 +53,3 @@ async function selectCourse(id) {
 
     
 }
-
-// async function fetchJSON(route) {
-//         const res = await fetch(route);
-//         return await res.json();
-//       }

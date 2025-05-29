@@ -55,7 +55,8 @@
         console.log(params)
         // const {courseId} = params;
 
-        const res = await fetchJSON(`/api/v1/course/search?${params.toString()}`)
+        const data = await fetch(`/api/v1/course/search?${params.toString()}`)
+        const res = await data.json()
         const courseInfo = res.course
         console.log(courseInfo)
 

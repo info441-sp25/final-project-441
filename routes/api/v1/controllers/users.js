@@ -39,6 +39,15 @@ router.get("/users/myIdentity", async (req, res) => {
   }
 })
 
+router.post('/', async (req, res) => {
+  try {
+    
+
+  } catch (err) {
+    res.status(500).json({status: 'error', error: err})
+  }
+})
+
 // GET saved courses
 // @pre: GET api/v1/users/saved?userID=...
 // @post: returns JSON arr of saved course info
