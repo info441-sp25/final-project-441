@@ -1,5 +1,4 @@
 import express from 'express';
-import models from '../models/models.js';
 
 const router = express.Router();
 
@@ -11,11 +10,11 @@ router.get("/users/myIdentity", async (req, res) => {
   const { username } = req.session.account;
 
   try {
-    let user = await models.User.findOne({ username });
+    let user = await req.models.User.findOne({ username });
 
     // Auto-create the user on first login
     if (!user) {
-      user = await models.User.create({
+      user = await req.models.User.create({
         username,
         major: "",
         biography: "",
