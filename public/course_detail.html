@@ -99,14 +99,16 @@
           "Writing":"Writing"
         }
         
-        potentialAreas.forEach(area => {
-          if (courseInfo.genEdReqs[area]) {
-            areas += newAreas[area] + ", ";
-            console.log(areas); 
-          }
-        })
+        // potentialAreas.forEach(area => {
+        //   if (courseInfo.genEdReqs[area]) {
+        //     areas += newAreas[area] + ", ";
+        //     console.log(areas); 
+        //   }
+        // })
 
-        console.log(areas)
+        courseInfo.genEdReqs.forEach(element => {
+          areas += newAreas[element] + ", "
+        });
 
         areas = areas.slice(0, areas.length - 2)
         console.log(areas)
