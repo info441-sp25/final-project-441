@@ -68,7 +68,9 @@ router.get("/search", async(req, res) => {
                 courseCollege: courseObj.courseCollege, 
                 credits: courseObj.credits, 
                 tags: courseObj.tags, 
-                reviews: courseObj.reviews
+                reviews: courseObj.reviews,
+                description: courseObj.description,
+                genEdReqs: courseObj.genEdReqs
             }
             return res.json({course: courseJson, create: false})
         } else { // course is not already in db
