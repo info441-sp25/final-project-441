@@ -47,11 +47,15 @@ router.get('/courseDetails', async (req, res) => {
 //makes the api call and saves to db if course isn't found
 router.get("/search", async(req, res) => {
     console.log("in search")
+    console.log(req.query)
     try {
-        const {course, department, quarter} = req.query
-        let courseId = course.replace(/\s/g, '')
+        let {course, department, quarter} = req.query
+        // let courseId = course.replace(/\s/g, '')
 
-        const courseObj = await req.models.Class.findOne({courseId: courseId})
+        course = course.toUpperCase().replace(/\s+/g, '').replace(/(\D+)(\d+)/, '$1 $2')
+        console.log("This is the formatted course", course)
+
+        const courseObj = await req.models.Class.findOne({courseId: course})
 
         if (courseObj) {
             console.log("found in db")
@@ -68,16 +72,16 @@ router.get("/search", async(req, res) => {
             }
             return res.json({course: courseJson, create: false})
         } else { // course is not already in db
-            console.log("calling uw api")
-            let processed_course = course
-            if(!course.includes(" ")) {
-                processed_course = (
-                    course.slice(0, course.length - 3) + " " + course.slice(course.length - 3)
-                )
-            }
+            // console.log("calling uw api")
+            // let processed_course = course
+            // if(!course.includes(" ")) {
+            //     processed_course = (
+            //         course.slice(0, course.length - 3) + " " + course.slice(course.length - 3)
+            //     )
+            // }
             const finalQuarter = quarter || 'Spring'
-            const finalDepartment = department || processed_course.split(" ")[0]
-            const course_num = processed_course.split(" ")[1]
+            const finalDepartment = department || course.split(" ")[0]
+            const course_num = course.split(" ")[1]
 
             const apiRes = await fetch(`https://ws.admin.washington.edu/student/v5/course/2025,${finalQuarter},${finalDepartment},${course_num}`, {
                 method: 'GET', 
@@ -95,7 +99,7 @@ router.get("/search", async(req, res) => {
             let data = await apiRes.json()
 
             const courseJson = {
-                courseId: courseId, 
+                courseId: data.Curriculum.CurriculumAbbreviation + " " + data.CourseNumber, 
                 courseNumber: course_num, 
                 courseTitle: data.CourseTitleLong, 
                 avgRating: 0, 
@@ -117,24 +121,32 @@ router.post('/', async (req, res) => {
     try {
 
         console.log("this is the body", req.body)
-        const {
+        let {
             courseId,
             courseNumber,
             courseTitle,  
             avgRating,
             courseCollege,
             credits,
+            description,
+            genEdReqs,
             tags,
             reviews
           } = req.body;
+
+          genEdReqs = Object.entries(genEdReqs)
+          .filter(([_, value]) => value)
+          .map(([key]) => key)
     
-        const newCourse = new req.models.Class({
+        let newCourse = new req.models.Class({
             courseId,
             courseNumber,
             courseTitle, 
             avgRating,
             courseCollege,
             credits,
+            description,
+            genEdReqs,
             tags, 
             reviews
         })

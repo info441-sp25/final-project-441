@@ -98,7 +98,7 @@ app.use(authProvider.interactionErrorHandler());
 // API v1 routes
 app.use('/api/v1', v1Router);
 
-// app.get('/users/myIdentity', (req, res) => {
+// app.get('/user/myIdentity', (req, res) => {
 //   console.log("get my identity");
 //   console.log("session account =", req.session?.account);
 //   if (req.session?.account) {

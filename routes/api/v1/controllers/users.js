@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get("/users/myIdentity", async (req, res) => {
+router.get("/myIdentity", async (req, res) => {
   if (!req.session.isAuthenticated) {
     return res.json({ status: "loggedout" });
   }
@@ -30,7 +30,8 @@ router.get("/users/myIdentity", async (req, res) => {
         name: user.username,
         username: user.username,
         major: user.major || "Not provided",
-        bio: user.biography || "Not provided"
+        bio: user.biography || "Not provided", 
+        savedCourses: user.savedCourses
       }
     });
   } catch (error) {
@@ -39,14 +40,14 @@ router.get("/users/myIdentity", async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
-  try {
+// router.post('/', async (req, res) => {
+//   try {
     
 
-  } catch (err) {
-    res.status(500).json({status: 'error', error: err})
-  }
-})
+//   } catch (err) {
+//     res.status(500).json({status: 'error', error: err})
+//   }
+// })
 
 // GET saved courses
 // @pre: GET api/v1/users/saved?userID=...

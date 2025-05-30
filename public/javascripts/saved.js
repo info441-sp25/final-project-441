@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", initSaved);
 
 async function initSaved() {
   try {
-    const identityRes = await fetch("/users/myIdentity");
+    const identityRes = await fetch("/user/myIdentity");
     const identity = await identityRes.json();
 
     if (!identity?.userInfo?.username) {

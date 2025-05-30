@@ -11,7 +11,7 @@ async function loadContent() {
     if (res.status == 404 || res.status == 500) {
         course = ""
     } else {
-        course = [res.course]
+        course = res.course
     }
     if (res.create) {
         console.log("entered this if statement")
@@ -23,20 +23,48 @@ async function loadContent() {
         })
     }
 
+    const user = await fetch('api/v1/user/myIdentity')
+    const userJson = await user.json()
+    
+
+    const isBookmarked = userJson.status == "loggedin" ? userJson.savedCourses  : null
+
+
     // TO DO: make courses appear as grid instead of as separate columns
-    document.getElementById("courses-results").innerHTML = course.map(course => `
-    <div class="card">
-        ${course ? 
-        `<div>
+    document.getElementById("courses-results").innerHTML = course ? 
+    `
+    <div class="card" id="${course.courseId}">
+        <div style="display: flex; justify-content: space-between;">
             <h3>${course.courseId}: ${course.courseTitle}</h3>
-            <button onclick="toggleBookmark(${course.courseId})"> </button>
+            ${isBookmarked ?
+            (isBookmarked.includes(course.courseId) ?
+            `<button onclick="toggleBookmark('${course.courseId}')"> <img src="img/bookmark-fill.svg"> </button>`
+            : `<button onclick="toggleBookmark('${course.courseId}')"> <img src='img/bookmark.svg'> </button>`) 
+            : ""}
+            
         </div>
         <p>College: ${course.courseCollege}</p>
         <p>Credits: ${course.credits}</p>
-        <button id=${course.courseId} onclick=selectCourse(this.id)> View Course </button>` : 
-        ` <p>No matching courses found</p>`}
+        <button onclick="selectCourse('${course.courseId}')"> View Course </button>
     </div>
-    `)
+    ` 
+    : 
+    ` <p>No matching courses found</p>`
+    
+
+    // document.getElementById("courses-results").innerHTML = course.map(course => `
+    //     <div class="card">
+    //         ${course ? 
+    //         `<div>
+    //             <h3>${course.courseId}: ${course.courseTitle}</h3>
+    //             <button onclick="toggleBookmark(${course.courseId})"> </button>
+    //         </div>
+    //         <p>College: ${course.courseCollege}</p>
+    //         <p>Credits: ${course.credits}</p>
+    //         <button id=${course.courseId} onclick=selectCourse(this.id)> View Course </button>` : 
+    //         ` <p>No matching courses found</p>`}
+    //     </div>
+    //     `)
 }
 
 function toggleBookmark(courseId) {

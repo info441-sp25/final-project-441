@@ -15,6 +15,8 @@ const classSchema = new mongoose.Schema({
     avgRating: Number,
     courseCollege: String, //engineering, info, etc.
     credits: Number,
+    description: String,
+    genEdReqs: [String],
     tags: [String],
     reviews: [Number]
 })
