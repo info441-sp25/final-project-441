@@ -79,12 +79,13 @@ async function searchCourse(event) {
 
   const course = document.getElementById('course-input').value.trim();
   const department = document.getElementById('department-select').value;
-  const quarter = document.getElementById('quarter-select').value;
+  const level = document.getElementById('level-select').value;
+  // might want to change to level
 
   const params = new URLSearchParams({
     course,
     department,
-    quarter
+    level
   });
 
   location.href = `/search_results.html?${params.toString()}`;

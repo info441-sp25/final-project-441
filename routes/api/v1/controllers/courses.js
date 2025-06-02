@@ -49,73 +49,91 @@ router.get("/search", async(req, res) => {
     console.log("in search")
     console.log(req.query)
     try {
-        let {course, department, quarter} = req.query
-        // let courseId = course.replace(/\s/g, '')
+        let {course, department, level} = req.query
+        let courseObj
 
-        course = course.toUpperCase().replace(/\s+/g, '').replace(/(\D+)(\d+)/, '$1 $2')
-        console.log("This is the formatted course", course)
+        // case 1: course code is provided, no other filters considered, looking for one result in db
+        if (course) {
+            course = course.toUpperCase().replace(/\s+/g, '').replace(/(\D+)(\d+)/, '$1 $2')
+            courseObj = await req.models.Class.findOne({courseId: course})
+            courseObj = courseObj ? [courseObj] : []
+        // case 2: filters only provided
+        } else if (department && !level){
+            courseObj = await req.models.Class.find({tags : department}).exec()
+        } else if (level && !department) {
+            courseObj = await req.models.Class.find({tags : level}).exec()
+        } else if (level && department) {
+            courseObj = await req.models.Class.find({tags : { $all: [department, level] }}).exec()
+        }
 
-        const courseObj = await req.models.Class.findOne({courseId: course})
-
-        if (courseObj) {
+        // mapping each course result to course object
+        if (courseObj && courseObj.length > 0) {
+            console.log("mapping this course", courseObj[0])
             console.log("found in db")
-            const courseJson = {
-                _id: courseObj._id,
-                courseId: courseObj.courseId,
-                courseNumber: courseObj.courseNumber, 
-                courseTitle: courseObj.courseTitle, 
-                avgRating: courseObj.avgRating, 
-                courseCollege: courseObj.courseCollege, 
-                credits: courseObj.credits, 
-                tags: courseObj.tags, 
-                reviews: courseObj.reviews,
-                description: courseObj.description,
-                genEdReqs: courseObj.genEdReqs
-            }
-            return res.json({course: courseJson, create: false})
-        } else { // course is not already in db
-            // console.log("calling uw api")
-            // let processed_course = course
-            // if(!course.includes(" ")) {
-            //     processed_course = (
-            //         course.slice(0, course.length - 3) + " " + course.slice(course.length - 3)
-            //     )
-            // }
-            const finalQuarter = quarter || 'Spring'
-            const finalDepartment = department || course.split(" ")[0]
-            const course_num = course.split(" ")[1]
-
-            const apiRes = await fetch(`https://ws.admin.washington.edu/student/v5/course/2025,${finalQuarter},${finalDepartment},${course_num}`, {
-                method: 'GET', 
-                headers: {
-                    Authorization : 'Bearer 3E406D01-E38F-473C-B255-113E5BD77339', 
-                    Accept : 'application/json'
+            console.log("this is the course", courseObj)
+            courseObj = courseObj.map(course => course.toObject())
+            const courses = courseObj.map(course => {
+                console.log("this is the mapping inside", course)
+                return {
+                    // _id: course._id,
+                    courseId: course.courseId,
+                    courseNumber: course.courseNumber, 
+                    courseTitle: course.courseTitle, 
+                    avgRating: course.avgRating, 
+                    courseCollege: course.courseCollege, 
+                    credits: course.credits, 
+                    tags: course.tags, 
+                    reviews: course.reviews,
+                    description: course.description,
+                    genEdReqs: course.genEdReqs
                 }
+                
             })
 
+            console.log("this is the mapping outside", courses)
 
-            if (!apiRes.ok) {
-               return res.status(404).json({error: "no course found"})
+           
+            return res.json({course: courses, create: false})
+        } else { 
+            // course is not already in db - make API call
+            // only fetches if full course code is provided 
+            let course_num
+            if (course) {
+                course_num = course.split(" ")[1]
+                const finalDepartment = department || course.split(" ")[0]
+
+                const apiRes = await fetch(`https://ws.admin.washington.edu/student/v5/course/2025,Spring,${finalDepartment},${course_num}`, {
+                    method: 'GET', 
+                    headers: {
+                        Authorization : 'Bearer 3E406D01-E38F-473C-B255-113E5BD77339', 
+                        Accept : 'application/json'
+                    }
+                })
+
+                if (!apiRes.ok) {
+                return res.status(404).json({error: "no course found"})
+                }
+
+                let data = await apiRes.json()
+
+                const courseJson = {
+                    courseId: data.Curriculum.CurriculumAbbreviation + " " + data.CourseNumber, 
+                    courseNumber: course_num, 
+                    courseTitle: data.CourseTitleLong, 
+                    avgRating: 0, 
+                    courseCollege: data.CourseCollege, 
+                    description: data.CourseDescription,
+                    genEdReqs: data.GeneralEducationRequirements,
+                    credits: data.MinimumTermCredit,
+                    tags: [finalDepartment, course_num[0]+ "00"], 
+                    reviews: []
+                }
+                return  res.json({course: courseJson, create: true})
             }
-
-            let data = await apiRes.json()
-
-            const courseJson = {
-                courseId: data.Curriculum.CurriculumAbbreviation + " " + data.CourseNumber, 
-                courseNumber: course_num, 
-                courseTitle: data.CourseTitleLong, 
-                avgRating: 0, 
-                courseCollege: data.CourseCollege, 
-                description: data.CourseDescription,
-                genEdReqs: data.GeneralEducationRequirements,
-                credits: data.MinimumTermCredit,
-                tags: [], 
-                reviews: []
-            }
-            return  res.json({course: courseJson, create: true})
+            return res.status(400).json({status: "error", message: "Please provide more course information" })
         }
     } catch (err) {
-        res.status(500).json({status: "error", error: err})
+        res.status(500).json({status: "error", error: err.message})
     }
 })
 

@@ -7,6 +7,10 @@ async function loadContent() {
     let data = await fetch(`/api/v1/course/search?${params.toString()}`)
     let res = await data.json()
 
+    console.log("params", params.toString())
+
+    console.log('this is the result', res)
+
     let course
     if (res.status == 404 || res.status == 500) {
         course = ""
@@ -28,12 +32,15 @@ async function loadContent() {
     
 
     const isBookmarked = userJson.status == "loggedin" ? userJson.savedCourses  : null
+    console.log("calculating the bookmark status", isBookmarked)
+    // console.log("the course body", res.course)
 
 
     // TO DO: make courses appear as grid instead of as separate columns
-    document.getElementById("courses-results").innerHTML = course ? 
+    document.getElementById("courses-results").innerHTML = course.length
+    ? (course.map(course => 
     `
-    <div class="card" id="${course.courseId}">
+    <div class="card" id="${course.courseId}" style="margin-bottom: 1rem;">
         <div style="display: flex; justify-content: space-between;">
             <h3>${course.courseId}: ${course.courseTitle}</h3>
             ${isBookmarked ?
@@ -48,23 +55,9 @@ async function loadContent() {
         <button onclick="selectCourse('${course.courseId}')"> View Course </button>
     </div>
     ` 
+    )).join("")
     : 
     ` <p>No matching courses found</p>`
-    
-
-    // document.getElementById("courses-results").innerHTML = course.map(course => `
-    //     <div class="card">
-    //         ${course ? 
-    //         `<div>
-    //             <h3>${course.courseId}: ${course.courseTitle}</h3>
-    //             <button onclick="toggleBookmark(${course.courseId})"> </button>
-    //         </div>
-    //         <p>College: ${course.courseCollege}</p>
-    //         <p>Credits: ${course.credits}</p>
-    //         <button id=${course.courseId} onclick=selectCourse(this.id)> View Course </button>` : 
-    //         ` <p>No matching courses found</p>`}
-    //     </div>
-    //     `)
 }
 
 function toggleBookmark(courseId) {

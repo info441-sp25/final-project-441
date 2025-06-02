@@ -66,7 +66,7 @@
 
         const data = await fetch(`/api/v1/course/search?${params.toString()}`)
         const res = await data.json()
-        const courseInfo = res.course
+        const courseInfo = res.course[0]
         console.log(courseInfo)
 
         // console.log(courseInfo.course.courseId)
@@ -80,7 +80,7 @@
         // Only included what I saw in the api swagger documentation,
         // but if all the stuff we have in the project proposal (prereqs, course sites,
         // tags) exist we can add those too
-        document.getElementById("courseCode").innerText = courseInfo.courseId.toUpperCase()
+        document.getElementById("courseCode").innerText = courseInfo.courseId
         document.getElementById("courseNameLong").innerText = courseInfo.courseTitle
         document.getElementById("desc").innerText = courseInfo.description
         
@@ -118,9 +118,10 @@
         console.log(revs)
         console.log(courseInfo.credits)
 
-        const miscString = `${courseInfo.credits} Credits |  ${areas} | Avg. Rating: ${revs}`
+        const miscString = areas 
+        ? `${courseInfo.credits} Credits | ${areas} | Avg. Rating: ${revs}` 
+        : `${courseInfo.credits} Credits | Avg. Rating: ${revs}`
         document.getElementById("misc").innerHTML = `<b> ${miscString} </b>`
-
 
       }
 
