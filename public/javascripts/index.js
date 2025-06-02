@@ -3,6 +3,7 @@ function toggleLoginUI(isLoggedIn) {
   document.getElementById('tabs')?.classList.toggle('hidden', !isLoggedIn);
   document.getElementById('login-btn')?.classList.toggle('hidden', isLoggedIn);
   document.getElementById('logout-btn')?.classList.toggle('hidden', !isLoggedIn);
+  document.getElementById('course-btn')?.classList.toggle('hidden', isLoggedIn)
 }
 
 async function checkLoginStatus() {
