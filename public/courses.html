@@ -21,13 +21,12 @@
   <div id="app" class="app">
     <nav class="navbar">
       <a href="/" class="logo">!Graduated</a>
-      <div class="tabs hidden" id="tabs">
-        <button class="tab" onclick="goHome()">Home</button>
-        <button class="tab" onclick="goSaved()">Saved</button>
-        <button class="tab" onclick="goProfile()">Profile</button>
-        <button class="tab" onclick="goHome()">Profile</button>
+      <div class="nav-tabs" id="tabs">
+        <button class="nav-btn" onclick="goHome()">Home</button>
+        <button class="nav-btn" onclick="goSaved()">Saved</button>
+        <button class="nav-btn" onclick="goProfile()">Profile</button>
       </div>
-      <a href="/courses.html" id="course-btn" class="btn-login">Courses</a> 
+      <a href="/courses.html" id="course-btn" class="btn-login">Courses</a>
       <a href="/signin" id="login-btn" class="btn-login">Log In</a>
       <a href="/signout" id="logout-btn" class="btn-login hidden">Log Out</a>
     </nav>
@@ -51,7 +50,7 @@
 
 
         document.getElementById("courses-results").innerHTML = coursesJson.length
-        ? (coursesJson.map(course => 
+        ? (coursesJson.map(course =>
         `
           <div class="card" id="${course.courseId}" style="margin-bottom: 1rem;">
               <div style="display: flex; justify-content: space-between;">
@@ -63,7 +62,7 @@
           </div>
           `
           )).join("")
-    : 
+    :
     ` <p>No matching courses found</p>`
 
 
@@ -81,7 +80,7 @@
     console.log("selectCourse")
     // const courseId = event.id; // FIND WAY TO GET COURSE ID FROM DYNAMIC HTML ELEMENT
 
-    location.href = `/course_detail.html?course=${id}`;    
+    location.href = `/course_detail.html?course=${id}`;
     }
 
 
