@@ -235,3 +235,17 @@ body {
 .visible {
   display: block;
 }
+
+.gold-auth-btn {
+  border: 2px solid #B7A57A;
+  background-color: white;
+  color: #4B2E83;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(183, 165, 122, 0.25);
+}
+
+.gold-auth-btn:hover {
+  background-color: #f5f0e5;
+  border-color: #a38a63;
+  transform: scale(1.06);
+}
