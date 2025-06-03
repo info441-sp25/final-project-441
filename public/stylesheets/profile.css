@@ -1,4 +1,3 @@
-/* profile.css */
 .container {
   max-width: 600px;
   margin: 2rem auto;
@@ -6,4 +5,41 @@
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Navbar layout */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap; /* allows wrapping on small screens */
+  gap: 16px;
+}
+
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .navbar-right {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    padding-top: 8px;
+  }
+
+  .nav-tabs,
+  .auth-buttons {
+    flex-direction: column;
+    align-items: flex-end;
+  }
 }
