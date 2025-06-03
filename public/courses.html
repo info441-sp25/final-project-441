@@ -10,7 +10,7 @@
   <script src="javascripts/index.js"></script>
 
 </head>
-<body onload="checkLoginStatus()">
+<body onload="checkLoginStatus(); init()">
   <!-- Navigation -->
   <!-- <nav class="navbar">
     <a href="/" class="logo">!Graduated</a>
@@ -37,5 +37,48 @@
         <div id="courses-results" class="card-grid">This will show your added courses or full listings.</div>
       </div>
     </div>
+    <script>
+
+      async function init()  {
+        console.log("in allcourses init")
+        document.getElementById("courses-results").innerText = "Loading...";
+
+        const courses = await fetch('api/v1/course');
+        const coursesJson = await courses.json();
+        console.log(coursesJson)
+        console.log(coursesJson[0])
+
+
+        document.getElementById("courses-results").innerHTML = coursesJson.length
+        ? (coursesJson.map(course => 
+        `
+          <div class="card" id="${course.courseId}" style="margin-bottom: 1rem;">
+              <div style="display: flex; justify-content: space-between;">
+                  <h3>${course.courseId}: ${course.courseTitle}</h3>
+              </div>
+              <p>College: ${course.courseCollege}</p>
+              <p>Credits: ${course.credits}</p>
+              <button onclick="selectCourse('${course.courseId}')"> View Course </button>
+          </div>
+          `
+          )).join("")
+    : 
+    ` <p>No matching courses found</p>`
+
+
+        // const params = new URLSearchParams(window.location.search)
+        // console.log(params)
+        // // const {courseId} = params;
+
+        // const data = await fetch(`/api/v1/course/search?${params.toString()}`)
+        // const res = await data.json()
+        // const courseInfo = res.course[0]
+        // console.log(courseInfo)
+      }
+
+
+
+
+    </script>
 </body>
 </html>

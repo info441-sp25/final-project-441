@@ -3,30 +3,17 @@ import fetch from 'node-fetch'
 
 var router = express.Router();
 
-// TODO: Test
-
-
-// takes filter parameters, returns matching courses from mongodb collection
-// @pre: request in form of GET api/{version}/courses?name=...&department=...&quarter=...
-    // any parameter can be null (but if all null, then just retrieves every course)
-// @returns: json array of classes meeting filter params
+// repurposed course/ endpoint to return all courses
 router.get('/', async (req, res) => {
+    const coursesObj = await req.models.Class.find()
+    // const coursesJson = await coursesObj.json()
+    console.log("in allcourses endpoint")
+    console.log(coursesObj)
 
-    const {name=null, department=null, quarter=null} = req.query
+    // const courseJson = await coursesObj.json()
 
-    const filter = [{}] 
-
-    name !== null && filter.push({courseCode: { $regex: /\*name\*/, $options: 'i' }}) // td: double check regex
-    department !== null && filter.push({department: department})
-    quarter !== null && filter.push({prevQuarters: quarter}) 
-
-    try {
-        const filteredCourses = await req.models.Class.find({$and : filter}).lean()
-        res.status(200).json(filteredCourses)    
-    } catch (e) {
-        console.log("ERROR: \n" + e)
-        res.status(500).json({"status":"error", "error":e.message})
-    }
+    res.json(coursesObj)
+    
 })
 
 // coursecode case endpoint (for detail view) - same as ^ but w/ primary key

@@ -1,6 +1,9 @@
-/* courses.css */
-/* .card-grid {
-  display: grid;
+.card-grid {
+  display: flex;
   gap: 1rem;
   padding: 1rem;
-} */
+}
+
+.card {
+  width: 50;
+}
