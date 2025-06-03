@@ -13,18 +13,25 @@
 </head>
 <body onload="checkLoginStatus()">
 
-<div id="app">
   <nav class="navbar">
     <a href="/" class="logo">!Graduated</a>
+    <div class="navbar-right">
+      <div class="nav-tabs" id="tabs">
+        <button class="nav-btn" onclick="goHome()">Home</button>
+        <button class="nav-btn" onclick="goSaved()">Saved</button>
+        <button class="nav-btn" onclick="goProfile()">Profile</button>
+        <a href="/courses.html" id="course-btn" class="nav-btn hidden">Courses</a>
+      </div>
+      <div class="auth-buttons">
+        <a href="/signin" id="login-btn" class="auth-btn login-btn">Log In</a>
+        <a href="/signout" id="logout-btn" class="auth-btn hidden">Log Out</a>
+      </div>
     <div class="tabs hidden" id="tabs">
       <button class="tab" onclick="goHome()">Home</button>
       <button class="tab" onclick="goSaved()">Saved</button>
       <button class="tab" onclick="goProfile()">Profile</button>
       <button class="tab" onclick="goHome()">Profile</button>
     </div>
-    <a href="/courses.html" id="course-btn" class="btn-login">Courses</a> 
-    <a href="/signin" id="login-btn" class="btn-login">Log In</a>
-    <a href="/signout" id="logout-btn" class="btn-login hidden">Log Out</a>
   </nav>
 
 
@@ -40,7 +47,7 @@
           <option value="INFO">INFO</option>
           <option value="CSE">CSE</option>
         </select>
-        <select id="level-select"> 
+        <select id="level-select">
           <option value="">All Levels</option>
           <option value="100">100</option>
           <option value="200">200</option>

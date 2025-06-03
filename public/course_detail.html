@@ -22,12 +22,11 @@
     <nav class="navbar">
       <a href="/" class="logo">!Graduated</a>
       <div class="tabs hidden" id="tabs">
-        <button class="tab" onclick="goHome()">Home</button>
+        <button class="tab" onclick="goHome()"">Home</button>
         <button class="tab" onclick="goSaved()">Saved</button>
-        <button class="tab" onclick="goProfile()">Profile</button>
-        <button class="tab" onclick="goHome()">Profile</button>
+        <button class="tab" onclick="goCourses()"">Courses</button>
+        <button class="tab" onclick="goProfile()"">Profile</button>
       </div>
-      <a href="/courses.html" id="course-btn" class="btn-login">Courses</a> 
       <a href="/signin" id="login-btn" class="btn-login">Log In</a>
       <a href="/signout" id="logout-btn" class="btn-login hidden">Log Out</a>
     </nav>
@@ -39,7 +38,7 @@
         <h2 id="courseNameLong"></h2>
         <div id="desc"></div>
         <br>
-        <div id="misc"></div>        
+        <div id="misc"></div>
       </div>
       <br>
       <div class="container">
@@ -51,12 +50,12 @@
           </svg> </button>
         </div>
         <h3 id="reviews">Reviews will go here!</h3>
-        
+
       </div>
     </div>
 
     <script>
-      // on page load, check session for current coursecode, call coursedetails 
+      // on page load, check session for current coursecode, call coursedetails
       // endpoint to get course data, and fill in html with those fields
       async function init()  {
         console.log("in detail init")
@@ -84,8 +83,8 @@
         document.getElementById("courseCode").innerText = courseInfo.courseId
         document.getElementById("courseNameLong").innerText = courseInfo.courseTitle
         document.getElementById("desc").innerText = courseInfo.description
-        
-        let areas = "" 
+
+        let areas = ""
         let potentialAreas = ["Diversity","EnglishComposition","IndividualsAndSocieties","NaturalWorld",
         "QuantitativeAndSymbolicReasoning", "VisualLiteraryAndPerformingArts", "Writing"] // old names idk if they're updated
         console.log(potentialAreas)
@@ -99,11 +98,11 @@
           "EnglishComposition":"English Composition",
           "Writing":"Writing"
         }
-        
+
         // potentialAreas.forEach(area => {
         //   if (courseInfo.genEdReqs[area]) {
         //     areas += newAreas[area] + ", ";
-        //     console.log(areas); 
+        //     console.log(areas);
         //   }
         // })
 
@@ -119,8 +118,8 @@
         console.log(revs)
         console.log(courseInfo.credits)
 
-        const miscString = areas 
-        ? `${courseInfo.credits} Credits | ${areas} | Avg. Rating: ${revs}` 
+        const miscString = areas
+        ? `${courseInfo.credits} Credits | ${areas} | Avg. Rating: ${revs}`
         : `${courseInfo.credits} Credits | Avg. Rating: ${revs}`
         document.getElementById("misc").innerHTML = `<b> ${miscString} </b>`
 

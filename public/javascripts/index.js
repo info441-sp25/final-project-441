@@ -12,8 +12,8 @@ async function checkLoginStatus() {
     const data = await res.json();
 
   //   await fetch(`/users`, {
-  //     method: 'POST', 
-  //     body: JSON.stringify(data.userInfo), 
+  //     method: 'POST',
+  //     body: JSON.stringify(data.userInfo),
   //     headers: {'Content-Type': 'application/json'}
   // })
 

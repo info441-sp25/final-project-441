@@ -1,3 +1,91 @@
+/* Base Setup */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(145deg, #f3f1f8, #eae8f5);
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Navbar Styling */
+.navbar {
+  width: 100%;
+  height: 80px;
+  background-color: #4B2E83;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px; /* Add slight breathing room */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  overflow-x: hidden;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.logo:hover {
+  color: #B7A57A;
+}
+
+/* Navbar Groups */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  margin-left: auto;
+  padding-right: 50px;
+  max-width: calc(100% - 220px);
+  overflow-x: auto;
+}
+
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-btn,
+.auth-btn {
+  padding: 8px 12px;
+  background-color: white;
+  color: #4B2E83;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-btn:hover,
+.auth-btn:hover {
+  background-color: #ede8ff;
+  transform: scale(1.04);
+}
+
+/* Hero Section */
 #login-gate {
   display: flex;
   flex-direction: column;
@@ -12,7 +100,12 @@
   max-width: 800px;
   width: 100%;
   animation: fadeInUp 0.8s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
+  text-align: center;
 }
 
 .hero-title {
@@ -21,14 +114,25 @@
   color: #4B2E83;
   margin-bottom: 14px;
   white-space: nowrap;
+  text-align: center;
 }
 
 .hero-subtitle {
   font-size: 1.4rem;
   color: #5f5f6e;
   margin-bottom: 32px;
+  text-align: center;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 500px) {
+  .hero-title {
+    font-size: 2.6rem;
+    white-space: normal;
+  }
+}
+
+/* Search Form */
 #search-container {
   display: flex;
   flex-direction: column;
@@ -43,27 +147,105 @@
 #search-container button {
   width: 100%;
   font-size: 1.2rem;
-  padding: 18px 22px;
+  padding: 16px 20px;
   border-radius: 12px;
   border: 1px solid #ccc;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
   text-align: center;
+}
+
+#search-container input:focus,
+#search-container select:focus {
+  outline: none;
+  border-color: #B7A57A;
+  box-shadow: 0 0 0 3px rgba(183, 165, 122, 0.2);
+}
+
+#search-container select {
+  appearance: none;
+  background-color: white;
+  background-image: url("data:image/svg+xml,%3Csvg fill='%234B2E83' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6H0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
 }
 
 #search-container button {
   background-color: #4B2E83;
   color: white;
+  border: none;
   font-weight: 600;
+  cursor: pointer;
 }
 
-@media (max-width: 500px) {
-  .hero-title {
-    font-size: 2.6rem;
-    white-space: normal;
+#search-container button:hover {
+  background-color: #341c5b;
+  transform: scale(1.02);
+}
+
+/* Page Layout */
+.page {
+  padding: 40px 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.page.visible {
+  display: block;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.65);
+  padding: 50px 30px;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  width: 90%;
+  box-sizing: border-box;
+}
+
+/* Animations */
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Visibility Helpers */
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  display: block;
+}
+
+.gold-auth-btn {
+  border: 2px solid #B7A57A;
+  background-color: white;
+  color: #4B2E83;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(183, 165, 122, 0.25);
+}
+
+.gold-auth-btn:hover {
+  background-color: #f5f0e5;
+  border-color: #a38a63;
+  transform: scale(1.06);
 }
