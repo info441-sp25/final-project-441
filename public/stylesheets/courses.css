@@ -1,33 +1,111 @@
-.card-grid {
-  display: flex;
-  gap: 1em;
-  padding: 1em;
-  flex-wrap: wrap;
+/* === Page Base === */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(145deg, #f3f1f8, #eae8f5);
 }
 
-.card {
-  width: 26%;
-  flex-wrap: wrap;  
-  margin: 1em;
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 25px;
-  padding: 1em;
-}
-
-h2 {
-  text-align: center;
-}
-
-#courses div {
-  margin-top: 1em;
-}
-
+/* === Main Layout === */
 #courses {
   display: flex;
-  align-items: center;
-  max-width: 1500px;
-  width: 100;
-  align-self: center;
+  justify-content: center;
+  padding: 60px 40px;
 }
 
+.container {
+  width: 100%;
+  max-width: 1440px;
+  background: #ffffff;
+  padding: 40px 48px 60px;
+  border-radius: 24px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+}
+
+/* === Header === */
+h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #4B2E83;
+  margin-bottom: 2rem;
+}
+
+/* === Grid Layout === */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+}
+
+/* === Card Style === */
+.card {
+  background-color: #fff;
+  border: 1.5px solid #4B2E83;
+  border-radius: 20px;
+  padding: 28px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* === Card Text === */
+.card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #2e2e2e;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+/* === Button === */
+.card button {
+  margin-top: auto;
+  padding: 10px 16px;
+  background-color: #4B2E83;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  align-self: flex-start;
+}
+
+.card button:hover {
+  background-color: #3a1f6d;
+  transform: scale(1.03);
+}
+
+/* === Responsive Layout === */
+@media (max-width: 1200px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 30px 24px;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+}
