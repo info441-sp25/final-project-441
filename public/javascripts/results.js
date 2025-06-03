@@ -29,9 +29,10 @@ async function loadContent() {
 
     const user = await fetch('api/v1/user/myIdentity')
     const userJson = await user.json()
+    console.log("user info", userJson)
     
 
-    const isBookmarked = userJson.status == "loggedin" ? userJson.savedCourses  : null
+    const isBookmarked = userJson.status == "loggedin" ? userJson.userInfo.savedCourses  : null
     console.log("calculating the bookmark status", isBookmarked)
     // console.log("the course body", res.course)
 
