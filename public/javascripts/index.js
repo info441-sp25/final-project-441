@@ -8,7 +8,7 @@ function toggleLoginUI(isLoggedIn) {
 
 async function checkLoginStatus() {
   try {
-    const res = await fetch('/user/myIdentity');
+    const res = await fetch('api/v1/user/myIdentity');
     const data = await res.json();
 
   //   await fetch(`/users`, {
@@ -43,7 +43,7 @@ async function checkLoginStatus() {
     //   document.getElementById('app').classList.toggle('hidden', !isLoggedIn);
 
 async function goSaved() {
-  const res = await fetch('/user/myIdentity');
+  const res = await fetch('api/v1/user/myIdentity');
   const data = await res.json();
   const userId = data?.userInfo?.username;
 

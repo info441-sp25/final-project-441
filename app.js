@@ -98,18 +98,18 @@ app.use(authProvider.interactionErrorHandler());
 // API v1 routes
 app.use('/api/v1', v1Router);
 
-app.get('/user/myIdentity', (req, res) => {
-  console.log("get my identity");
-  console.log("session account =", req.session?.account);
-  if (req.session?.account) {
-    res.json({
-      status: "loggedin",
-      name: req.session.account.name,
-      username: req.session.account.username
-    });
-  } else {
-    res.json({ status: "loggedout" });
-  }
-});
+// app.get('/user/myIdentity', (req, res) => {
+//   console.log("get my identity");
+//   console.log("session account =", req.session?.account);
+//   if (req.session?.account) {
+//     res.json({
+//       status: "loggedin",
+//       name: req.session.account.name,
+//       username: req.session.account.username
+//     });
+//   } else {
+//     res.json({ status: "loggedout" });
+//   }
+// });
 
 export default app;
