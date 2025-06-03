@@ -13,18 +13,18 @@
 </head>
 <body onload="checkLoginStatus()">
 
-<div id="app">
   <nav class="navbar">
     <a href="/" class="logo">!Graduated</a>
-    <div class="tabs hidden" id="tabs">
-      <button class="tab" onclick="goHome()">Home</button>
-      <button class="tab" onclick="goSaved()">Saved</button>
-      <button class="tab" onclick="goProfile()">Profile</button>
+    <div class="nav-tabs" id="tabs">
+      <button class="nav-btn" onclick="goHome()">Home</button>
+      <button class="nav-btn" onclick="goSaved()">Saved</button>
+      <button class="nav-btn" onclick="goProfile()">Profile</button>
+      <a href="/courses.html" id="course-btn" class="nav-btn hidden">Courses</a>
     </div>
-    <!-- <button class="tab" onclick="goCourses()">Courses</button> -->
-    <a href="/courses.html" id="course-btn" class="btn-login hidden">Courses</a>
-    <a href="/signin" id="login-btn" class="btn-login hidden">Log In</a>
-    <a href="/signout" id="logout-btn" class="btn-login hidden">Log Out</a>
+    <div class="auth-buttons">
+      <a href="/signin" id="login-btn" class="auth-btn hidden">Log In</a>
+      <a href="/signout" id="logout-btn" class="auth-btn hidden">Log Out</a>
+    </div>
   </nav>
 
 

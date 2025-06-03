@@ -18,18 +18,19 @@
   </nav> -->
 
   <!-- App View (Logged In) -->
-  <div id="app" class="app">
-    <nav class="navbar">
-        <a href="/" class="logo">!Graduated</a>
-        <div class="tabs hidden" id="tabs">
-          <button class="tab" onclick="goHome()"">Home</button>
-          <button class="tab" onclick="goSaved()">Saved</button>
-          <button class="tab" onclick="goCourses()"">Courses</button>
-          <button class="tab" onclick="goProfile()"">Profile</button>
-        </div>
-        <a href="/signin" id="login-btn" class="btn-login">Log In</a>
-        <a href="/signout" id="logout-btn" class="btn-login hidden">Log Out</a>
-    </nav>
+  <nav class="navbar">
+    <a href="/" class="logo">!Graduated</a>
+    <div class="nav-tabs" id="tabs">
+      <button class="nav-btn" onclick="goHome()">Home</button>
+      <button class="nav-btn" onclick="goSaved()">Saved</button>
+      <button class="nav-btn" onclick="goProfile()">Profile</button>
+      <a href="/courses.html" id="course-btn" class="nav-btn hidden">Courses</a>
+    </div>
+    <div class="auth-buttons">
+      <a href="/signin" id="login-btn" class="auth-btn hidden">Log In</a>
+      <a href="/signout" id="logout-btn" class="auth-btn hidden">Log Out</a>
+    </div>
+  </nav>
 
     <div id="profile" class="page">
       <div class="container">
