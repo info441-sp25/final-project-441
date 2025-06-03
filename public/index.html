@@ -11,7 +11,7 @@
   <script src="javascripts/results.js"></script>
 
 </head>
-<body onload="checkLoginStatus()">
+<body onload="init(); checkLoginStatus();">
 
   <nav class="navbar">
     <a href="/" class="logo">!Graduated</a>
@@ -20,7 +20,7 @@
         <button class="nav-btn" onclick="goHome()">Home</button>
         <button class="nav-btn" onclick="goSaved()">Saved</button>
         <button class="nav-btn" onclick="goProfile()">Profile</button>
-        <a href="/courses.html" id="course-btn" class="nav-btn hidden">Courses</a>
+        <a href="/courses.html" id="course-btn" class="nav-btn">Courses</a>
       </div>
       <div class="auth-buttons">
         <a href="/signin" id="login-btn" class="auth-btn login-btn">Log In</a>
