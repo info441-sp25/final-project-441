@@ -1,9 +1,33 @@
 .card-grid {
   display: flex;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 1em;
+  padding: 1em;
+  flex-wrap: wrap;
 }
 
 .card {
-  width: 50;
+  width: 26%;
+  flex-wrap: wrap;  
+  margin: 1em;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 25px;
+  padding: 1em;
 }
+
+h2 {
+  text-align: center;
+}
+
+#courses div {
+  margin-top: 1em;
+}
+
+#courses {
+  display: flex;
+  align-items: center;
+  max-width: 1500px;
+  width: 100;
+  align-self: center;
+}
+

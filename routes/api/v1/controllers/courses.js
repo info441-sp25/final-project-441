@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const coursesObj = await req.models.Class.find()
     // const coursesJson = await coursesObj.json()
     console.log("in allcourses endpoint")
-    console.log(coursesObj)
+    // console.log(coursesObj)
 
     // const courseJson = await coursesObj.json()
 

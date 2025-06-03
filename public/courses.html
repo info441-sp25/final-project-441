@@ -77,6 +77,13 @@
         // console.log(courseInfo)
       }
 
+      async function selectCourse(id) {
+    console.log("selectCourse")
+    // const courseId = event.id; // FIND WAY TO GET COURSE ID FROM DYNAMIC HTML ELEMENT
+
+    location.href = `/course_detail.html?course=${id}`;    
+    }
+
 
 
 
