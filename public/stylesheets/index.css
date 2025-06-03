@@ -5,7 +5,7 @@ body {
   background: linear-gradient(145deg, #f3f1f8, #eae8f5);
   font-family: 'Poppins', sans-serif;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 /* Navbar Styling */
