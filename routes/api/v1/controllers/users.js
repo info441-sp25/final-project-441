@@ -47,6 +47,7 @@ router.get('/saved', async (req, res) => {
   try {
     const user = await req.models.User.findOne({username : req.query.userId})
 
+    console.log("this is the user", user)
     if (!user) {
       return res.status(404).json({error: "User not found"})
     }
