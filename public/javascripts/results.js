@@ -27,7 +27,7 @@ async function loadContent() {
         })
     }
 
-    const user = await fetch('api/v1/user/myIdentity')
+    const user = await fetch('/api/v1/user/myIdentity')
     const userJson = await user.json()
     console.log("user info", userJson)
     
@@ -65,13 +65,13 @@ async function toggleBookmark(courseId) {
     // check if the course is saved for the user
     // if yes: remove course (unfilled icon)
     // if no: add course (filled icon)
-    const user = await fetch('api/v1/user/myIdentity')
+    const user = await fetch('/api/v1/user/myIdentity')
     const userJson = await user.json()
     const userId = userJson.userInfo.username
 
     console.log("this is the user id in toggle bookmark", userId)
 
-    const res = await fetch(`api/v1/user/saved`, {
+    const res = await fetch(`/api/v1/user/saved`, {
         method: "POST",
         body: JSON.stringify({courseId: courseId, userId: userId}), 
         headers: {'Content-Type': 'application/json'}

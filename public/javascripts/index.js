@@ -7,7 +7,7 @@ function toggleLoginUI(isLoggedIn) {
 
 async function checkLoginStatus() {
   try {
-    const res = await fetch('api/v1/user/myIdentity');
+    const res = await fetch('/api/v1/user/myIdentity');
     const data = await res.json();
 
     const isLoggedIn = data?.status === "loggedin";
@@ -32,7 +32,7 @@ async function checkLoginStatus() {
 }
 
 async function goSaved() {
-  const res = await fetch('api/v1/user/myIdentity');
+  const res = await fetch('/api/v1/user/myIdentity');
   const data = await res.json();
   const userId = data?.userInfo?.username;
 
@@ -80,7 +80,7 @@ async function searchCourse(event) {
 }
 
 async function saveCourse(courseId, userId) {
-  await fetch(`api/v1/user/saved`, {
+  await fetch(`/api/v1/user/saved`, {
     method: "POST",
     body: {courseId: courseId, userId: userId}
   });
