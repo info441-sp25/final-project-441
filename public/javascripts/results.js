@@ -70,6 +70,7 @@ async function toggleBookmark(courseId) {
     const userId = userJson.userInfo.username
 
     console.log("this is the user id in toggle bookmark", userId)
+    console.log("this is the courseId in toggle bookmark", courseId)
 
     const res = await fetch(`/api/v1/user/saved`, {
         method: "POST",
