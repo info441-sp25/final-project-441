@@ -73,7 +73,7 @@ router.get('/saved', async (req, res) => {
     })
     res.json({saved: savedPreview})
   } catch (err) {
-    return res.status(500).json({status: "error", "error": err})
+    return res.status(500).json({status: "error", "error": err.message})
   }
   
 })

@@ -32,6 +32,9 @@ async function checkLoginStatus() {
 }
 
 async function goSaved() {
+
+  location.href = "/saved.html";
+
   const res = await fetch('/api/v1/user/myIdentity');
   const data = await res.json();
   const userId = data?.userInfo?.username;
@@ -52,7 +55,6 @@ async function goSaved() {
     `
   }).join('');
 
-  location.href = "/saved.html";
 
   window.addEventListener("DOMContentLoaded", () => {
     const savedResultsBox = document.getElementById("saved-results");
