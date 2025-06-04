@@ -21,8 +21,8 @@ async function loadContent() {
         console.log("entered this if statement")
         console.log(res.course)
         await fetch(`/api/v1/course`, {
-            method: 'POST', 
-            body: JSON.stringify(res.course), 
+            method: 'POST',
+            body: JSON.stringify(res.course),
             headers: {'Content-Type': 'application/json'}
         })
     }
@@ -30,7 +30,7 @@ async function loadContent() {
     const user = await fetch('/api/v1/user/myIdentity')
     const userJson = await user.json()
     console.log("user info", userJson)
-    
+
 
     const isBookmarked = userJson.status == "loggedin" ? userJson.userInfo.savedCourses  : null
     console.log("calculating the bookmark status", isBookmarked)
@@ -39,7 +39,7 @@ async function loadContent() {
 
     // TO DO: make courses appear as grid instead of as separate columns
     document.getElementById("courses-results").innerHTML = course.length
-    ? (course.map(course => 
+    ? (course.map(course =>
     `
     <div class="card" id="${course.courseId}" style="margin-bottom: 1rem;">
         <div style="display: flex; justify-content: space-between;">
@@ -47,17 +47,17 @@ async function loadContent() {
             ${isBookmarked ?
             (isBookmarked.includes(course.courseId) ?
             `<button onclick="toggleBookmark('${course.courseId}')"> <img src="img/bookmark-fill.svg"> </button>`
-            : `<button onclick="toggleBookmark('${course.courseId}')"> <img src='img/bookmark.svg'> </button>`) 
+            : `<button onclick="toggleBookmark('${course.courseId}')"> <img src='img/bookmark.svg'> </button>`)
             : ""}
-            
+
         </div>
         <p>College: ${course.courseCollege}</p>
         <p>Credits: ${course.credits}</p>
         <button onclick="selectCourse('${course.courseId}')"> View Course </button>
     </div>
-    ` 
+    `
     )).join("")
-    : 
+    :
     ` <p>No matching courses found</p>`
 }
 
@@ -74,7 +74,7 @@ async function toggleBookmark(courseId) {
 
     const res = await fetch(`/api/v1/user/saved`, {
         method: "POST",
-        body: JSON.stringify({courseId: courseId, userId: userId}), 
+        body: JSON.stringify({courseId: courseId, userId: userId}),
         headers: {'Content-Type': 'application/json'}
     });
 
@@ -99,6 +99,4 @@ async function selectCourse(id) {
     // const courseId = event.id; // FIND WAY TO GET COURSE ID FROM DYNAMIC HTML ELEMENT
 
     location.href = `/course_detail.html?course=${id}`;
-
-    
 }

@@ -3,17 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <title>!Graduated</title>
-  <link rel="stylesheet" href="stylesheets/index.css">
-  <link rel="stylesheet" href="stylesheets/search_results.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="stylesheets/index.css" />
+  <link rel="stylesheet" href="stylesheets/search_results.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+  />
   <script src="javascripts/index.js"></script>
   <script src="javascripts/results.js"></script>
 </head>
 
 <body onload="checkLoginStatus(); loadContent()">
-
   <div id="app" class="app">
+
     <!-- Navbar -->
     <nav class="navbar">
       <a href="/" class="logo">!Graduated</a>
@@ -33,13 +38,27 @@
 
     <!-- Page Content -->
     <div class="page">
-      <button class="back-btn" onclick="history.back()">← Back to Search</button>
-
       <div class="container">
-        <h1 id="mathcing-courses-h1">Matching Courses</h1>
-        <div id="courses-results" class="results-list">No search results found.</div>
+        <div class="top-header">
+          <h1 class="page-title" id="mathcing-courses-h1">Matching Courses</h1>
+          <button class="back-btn" onclick="history.back()">← Back to Search</button>
+        </div>
+
+        <div id="courses-results" class="results-list">
+          <!-- Course Card with Bookmark Button -->
+          <div class="card">
+            <button class="bookmark-btn" aria-label="Save course">
+              <i class="fa-solid fa-bookmark"></i>
+            </button>
+            <h3>INFO 441: Server–Side Development</h3>
+            <p>College: Information School</p>
+            <p>Credits: 5</p>
+            <button class="view-course-btn">View Course</button>
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
 </body>
 </html>
