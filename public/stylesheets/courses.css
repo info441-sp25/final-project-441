@@ -108,4 +108,31 @@ h2 {
   h2 {
     font-size: 2rem;
   }
+
+}
+/* === Auth Buttons (Login/Logout/Courses) === */
+.auth-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.auth-btn {
+  padding: 10px 20px;
+  background-color: white;
+  color: #4B2E83;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid #4B2E83;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.auth-btn:hover {
+  background-color: #ede8ff;
+  color: #381c60;
+  transform: scale(1.05);
 }

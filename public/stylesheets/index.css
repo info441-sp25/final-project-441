@@ -1,4 +1,4 @@
-/* Base Setup */
+/* === Base Setup === */
 body {
   margin: 0;
   padding: 0;
@@ -8,7 +8,7 @@ body {
   overflow: hidden;
 }
 
-/* Navbar Styling */
+/* === Navbar Styling === */
 .navbar {
   width: 100%;
   height: 80px;
@@ -16,7 +16,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px; /* Add slight breathing room */
+  padding: 0 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   position: fixed;
   top: 0;
@@ -37,7 +37,7 @@ body {
   color: #B7A57A;
 }
 
-/* Navbar Groups */
+/* === Navbar Groups === */
 .navbar-right {
   display: flex;
   align-items: center;
@@ -85,7 +85,7 @@ body {
   transform: scale(1.04);
 }
 
-/* Hero Section */
+/* === Hero Section === */
 #login-gate {
   display: flex;
   flex-direction: column;
@@ -124,7 +124,7 @@ body {
   text-align: center;
 }
 
-/* Responsive Adjustments */
+/* === Responsive Adjustments === */
 @media (max-width: 500px) {
   .hero-title {
     font-size: 2.6rem;
@@ -132,7 +132,7 @@ body {
   }
 }
 
-/* Search Form */
+/* === Search Form === */
 #search-container {
   display: flex;
   flex-direction: column;
@@ -185,7 +185,7 @@ body {
   transform: scale(1.02);
 }
 
-/* Page Layout */
+/* === Page Layout === */
 .page {
   padding: 40px 20px;
   width: 100%;
@@ -208,7 +208,7 @@ body {
   box-sizing: border-box;
 }
 
-/* Animations */
+/* === Animations === */
 @keyframes slideInRight {
   to {
     opacity: 1;
@@ -227,7 +227,7 @@ body {
   }
 }
 
-/* Visibility Helpers */
+/* === Visibility Helpers === */
 .hidden {
   display: none !important;
 }
@@ -236,6 +236,7 @@ body {
   display: block;
 }
 
+/* === Special Auth Button Variant === */
 .gold-auth-btn {
   border: 2px solid #B7A57A;
   background-color: white;

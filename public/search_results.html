@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>!Graduated</title>
-  <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="stylesheets/index.css">
   <link rel="stylesheet" href="stylesheets/search_results.css">    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <script src="javascripts/index.js"></script>
@@ -22,9 +22,11 @@
         <button class="tab" onclick="goProfile()">Profile</button>
         <button class="tab" onclick="goHome()">Profile</button>
       </div>
-      <a href="/courses.html" id="course-btn" class="btn-login">Courses</a> 
-      <a href="/signin" id="login-btn" class="btn-login">Log In</a>
-      <a href="/signout" id="logout-btn" class="btn-login hidden">Log Out</a>
+      <div class="auth-buttons">
+        <a href="/courses.html" id="course-btn" class="auth-btn">Courses</a>
+        <a href="/signin" id="login-btn" class="auth-btn login-btn">Log In</a>
+        <a href="/signout" id="logout-btn" class="auth-btn hidden">Log Out</a>
+      </div>
     </nav>
 
     <div class="page">
