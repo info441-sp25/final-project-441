@@ -38,7 +38,8 @@ async function loadContent() {
 
 
     // TO DO: make courses appear as grid instead of as separate columns
-    document.getElementById("courses-results").innerHTML = course.length
+    document.getElementById("courses-results").innerHTML = 
+    Array.isArray(course) && course.length
     ? (course.map(course =>
     `
     <div class="card" id="${course.courseId}" style="margin-bottom: 1rem;">
