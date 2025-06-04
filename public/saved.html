@@ -9,33 +9,35 @@
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <script src="javascripts/index.js"></script>
   <script src="javascripts/saved.js"></script>
-
 </head>
 
 <body onload="checkLoginStatus()">
   <div id="app" class="app">
     <nav class="navbar">
-      <a href="/" class="logo">!Graduated</a>
-      <div class="tabs hidden" id="tabs">
-        <button class="tab" onclick="goHome()">Home</button>
-        <button class="tab" onclick="goSaved()">Saved</button>
-        <button class="tab" onclick="goProfile()">Profile</button>
-        <button class="tab" onclick="goHome()">Profile</button>
-      </div>
-      <a href="/courses.html" id="course-btn" class="btn-login">Courses</a>
-      <a href="/signin" id="login-btn" class="btn-login">Log In</a>
-      <a href="/signout" id="logout-btn" class="btn-login hidden">Log Out</a>
+        <a href="/" class="logo">!Graduated</a>
+        <div class="navbar-right">
+          <div class="nav-tabs" id="tabs">
+            <button class="nav-btn" onclick="goHome()">Home</button>
+            <button class="nav-btn" onclick="goSaved()">Saved</button>
+            <button class="nav-btn" onclick="goProfile()">Profile</button>
+          </div>
+          <div class="auth-buttons">
+            <a href="/courses.html" class="auth-btn">Courses</a>
+            <a href="/signin" id="login-btn" class="auth-btn">Log In</a>
+            <a href="/signout" id="logout-btn" class="auth-btn hidden">Log Out</a>
+          </div>
+        </div>
     </nav>
 
     <div class="page">
       <div class="container">
-        <h2>Saved Courses</h2>
+        <div class="back-btn-wrapper">
+          <button class="back-btn" onclick="history.back()">← Back to Courses</button>
+        </div>
+                <h2>Saved Courses</h2>
         <div id="saved-results" class="card-grid">Loading your saved courses...</div>
       </div>
     </div>
-
-    <script src="javascripts/index.js"></script>
-    <script src="javascripts/saved.js"></script>
   </div>
 </body>
 </html>

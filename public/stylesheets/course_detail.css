@@ -1,0 +1,65 @@
+/* === Back Button === */
+.back-btn {
+  padding: 10px 18px;
+  background-color: white;
+  color: #4B2E83;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid #4B2E83;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  margin: 20px 0;
+}
+
+.back-btn:hover {
+  background-color: #ede8ff;
+  color: #381c60;
+  transform: scale(1.05);
+}
+
+/* === Container === */
+.container {
+  background-color: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+  margin-bottom: 40px;
+}
+
+/* === Headings === */
+.container h1, .container h2 {
+  color: #4B2E83;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+#desc {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+#misc {
+  font-size: 1rem;
+  color: #222;
+  margin-top: 12px;
+}
+
+#reviews {
+  font-weight: 500;
+  color: #333;
+}
+
+/* === Responsive Fixes === */
+@media (max-width: 768px) {
+  .container {
+    padding: 24px;
+  }
+
+  .back-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
