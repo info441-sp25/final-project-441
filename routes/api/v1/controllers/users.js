@@ -45,7 +45,7 @@ router.get("/myIdentity", async (req, res) => {
 // @post: returns JSON arr of saved course info
 router.get('/saved', async (req, res) => {
   try {
-    const user = await req.models.User.findOne({userId : req.query.userId})
+    const user = await req.models.User.findOne({username : req.query.userId})
 
     if (!user) {
       return res.status(404).json({error: "User not found"})
@@ -85,7 +85,7 @@ router.post('/saved', async (req, res) => {
   try {
 
     console.log("this is the body", req.body)
-    let user = await req.models.User.findOne({userId: req.body.userId})
+    let user = await req.models.User.findOne({username: req.body.userId})
     console.log("these are the saved courses", user.savedCourses)
 
     // if course not saved add it
