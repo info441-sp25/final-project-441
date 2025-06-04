@@ -5,6 +5,8 @@ async function initSaved() {
     const identityRes = await fetch("api/v1/user/myIdentity");
     const identity = await identityRes.json();
 
+    console.log("this is the identity", identity)
+
     if (!identity?.userInfo?.username) {
       document.getElementById("saved-results").innerText = "Please log in to view saved courses.";
       return;
