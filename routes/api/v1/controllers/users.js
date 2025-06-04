@@ -56,6 +56,8 @@ router.get('/saved', async (req, res) => {
       return await req.models.Course.findOne({courseId : course})
     }))
 
+    console.log("these are the saved courses", savedCourses)
+
     const savedPreview = savedCourses.map(course => {
       return {
         // _id: course._id,
@@ -71,6 +73,8 @@ router.get('/saved', async (req, res) => {
         genEdReqs: course.genEdReqs
       }
     })
+    console.log("these are the course previews", savedPreview)
+
     res.json({saved: savedPreview})
   } catch (err) {
     return res.status(500).json({status: "error", "error": err.message})
