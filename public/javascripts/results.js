@@ -69,7 +69,7 @@ async function toggleBookmark(courseId) {
     const userJson = await user.json()
     const userId = userJson.userInfo.username
 
-    const res = await fetch(`api/v1/users/saved`, {
+    const res = await fetch(`api/v1/user/saved`, {
         method: "POST",
         body: JSON.stringify({courseId: courseId, userId: userId}), 
         headers: {'Content-Type': 'application/json'}

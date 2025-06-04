@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", initSaved);
 
 async function initSaved() {
   try {
-    const identityRes = await fetch("api/v1/users/myIdentity");
+    const identityRes = await fetch("api/v1/user/myIdentity");
     const identity = await identityRes.json();
 
     if (!identity?.userInfo?.username) {
@@ -11,7 +11,7 @@ async function initSaved() {
     }
 
     const userId = identity.userInfo.username;
-    const savedRes = await fetch(`/api/v1/users/saved?userId=${userId}`);
+    const savedRes = await fetch(`/api/v1/user/saved?userId=${userId}`);
     const json = await savedRes.json();
     const savedCourses = json.saved
 
