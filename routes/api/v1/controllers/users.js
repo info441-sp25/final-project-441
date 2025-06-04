@@ -51,6 +51,8 @@ router.get('/saved', async (req, res) => {
     if (!user) {
       return res.status(404).json({error: "User not found"})
     }
+
+    console.log("saved courses", user.savedCourses)
     // arr of saved courses
     const savedCourses = await Promise.all(user.savedCourses.map(async course => {
       return await req.models.Course.findOne({courseId : course})
