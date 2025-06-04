@@ -14,11 +14,11 @@ const classSchema = new mongoose.Schema({
     courseTitle: String,
     avgRating: Number,
     courseCollege: String, //engineering, info, etc.
-    credits: Number,
+    credits: String,
     description: String,
     genEdReqs: [String],
     tags: [String],
-    reviews: [Number]
+    reviews: [String]
 })
 
 const userSchema = new mongoose.Schema({
@@ -27,13 +27,13 @@ const userSchema = new mongoose.Schema({
     major: String,
     biography: String,
     profileImageUrl: String,
-    savedCourses: [Number],
-    coursesTaken: [Number],
-    reviews: [Number]
+    savedCourses: [String],
+    coursesTaken: [String],
+    reviews: [String]
 })
 
 const reviewSchema = new mongoose.Schema({
-    reviewId: Number,
+    reviewId: String,
     numStars: Number,
     comment: String
 })
