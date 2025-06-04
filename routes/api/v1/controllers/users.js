@@ -55,7 +55,7 @@ router.get('/saved', async (req, res) => {
     console.log("saved courses", user.savedCourses)
     // arr of saved courses
     const savedCourses = await Promise.all(user.savedCourses.map(async course => {
-      return await req.models.Course.findOne({courseId : course})
+      return await req.models.Class.findOne({courseId : course})
     }))
 
     console.log("these are the saved courses", savedCourses)
