@@ -42,7 +42,7 @@ async function goSaved() {
   }
 
   let saved = await fetch(`/api/v1/user/saved?userId=${userId}`);
-  let savedJSON = saved.json();
+  let savedJSON = await saved.json();
   let savedHTML = savedJSON.saved.map(post => {
     return `
       <div class="container">
