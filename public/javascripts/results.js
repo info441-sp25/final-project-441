@@ -61,10 +61,32 @@ async function loadContent() {
     ` <p>No matching courses found</p>`
 }
 
-function toggleBookmark(courseId) {
+async function toggleBookmark(courseId) {
     // check if the course is saved for the user
     // if yes: remove course (unfilled icon)
     // if no: add course (filled icon)
+    const user = await fetch('api/v1/user/myIdentity')
+    const userJson = await user.json()
+    const userId = userJson.userInfo.username
+
+    const res = await fetch(`api/v1/users/saved`, {
+        method: "POST",
+        body: JSON.stringify({courseId: courseId, userId: userId}), 
+        headers: {'Content-Type': 'application/json'}
+    });
+
+    const data = await res.json()
+    const userCourses = data.saved
+
+    const card = document.getElementById(courseId)
+    const btn = card.querySelector('button')
+    const img = btn.querySelector('img')
+
+    if (userCourses.includes(courseId)) {
+        img.src = 'img/bookmark-fill.svg'
+    } else {
+        img.src = 'img/bookmark.svg'
+    }
 }
 
 async function selectCourse(id) {

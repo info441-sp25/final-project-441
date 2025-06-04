@@ -10,12 +10,6 @@ async function checkLoginStatus() {
     const res = await fetch('api/v1/user/myIdentity');
     const data = await res.json();
 
-  //   await fetch(`/users`, {
-  //     method: 'POST',
-  //     body: JSON.stringify(data.userInfo),
-  //     headers: {'Content-Type': 'application/json'}
-  // })
-
     const isLoggedIn = data?.status === "loggedin";
 
     toggleLoginUI(isLoggedIn);
@@ -37,10 +31,6 @@ async function checkLoginStatus() {
   }
 }
 
-    //   // Toggle visibility based on login status
-    //   document.getElementById('login-gate').classList.toggle('hidden', isLoggedIn);
-    //   document.getElementById('app').classList.toggle('hidden', !isLoggedIn);
-
 async function goSaved() {
   const res = await fetch('api/v1/user/myIdentity');
   const data = await res.json();
@@ -53,15 +43,13 @@ async function goSaved() {
 
   let saved = await fetch(`/api/v1/users/saved?userId=${userId}`);
   let savedJSON = saved.json();
-  let savedHTML = savedJSON.map(post => {
+  let savedHTML = savedJSON.saved.map(post => {
     return `
       <div class="container">
         <h3>${post.courseCode}: ${post.courseName}</h3>
         <p>${post.courseDescription}</p>
       </div>
     `
-    // need save button and where to display course info
-    // onclick='saveCourse'
   }).join('');
 
   location.href = "/saved.html";
@@ -92,7 +80,7 @@ async function searchCourse(event) {
 }
 
 async function saveCourse(courseId, userId) {
-  await fetch(`api/v1/users/save`, {
+  await fetch(`api/v1/users/saved`, {
     method: "POST",
     body: {courseId: courseId, userId: userId}
   });

@@ -12,18 +12,25 @@ async function initSaved() {
 
     const userId = identity.userInfo.username;
     const savedRes = await fetch(`/api/v1/users/saved?userId=${userId}`);
-    const savedCourses = await savedRes.json();
+    const json = await savedRes.json();
+    const savedCourses = json.saved
 
     const container = document.getElementById("saved-results");
     if (!savedCourses || savedCourses.length === 0) {
       container.innerHTML = "<p>No saved courses yet.</p>";
     } else {
-      container.innerHTML = savedCourses.map(post => `
-        <div class="card">
-          <h3>${post.courseCode}: ${post.courseName}</h3>
-          <p>${post.courseDescription}</p>
-        </div>
-      `).join('');
+      container.innerHTML = savedCourses.map(course => 
+      `
+      <div class="card" id="${course.courseId}" style="margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between;">
+              <h3>${course.courseId}: ${course.courseTitle}</h3>
+          </div>
+          <p>College: ${course.courseCollege}</p>
+          <p>Credits: ${course.credits}</p>
+          <button onclick="selectCourse('${course.courseId}')"> View Course </button>
+      </div>
+      `
+      ).join("")
     }
   } catch (err) {
     console.error("Failed to load saved courses:", err);

@@ -40,15 +40,6 @@ router.get("/myIdentity", async (req, res) => {
   }
 })
 
-// router.post('/', async (req, res) => {
-//   try {
-    
-
-//   } catch (err) {
-//     res.status(500).json({status: 'error', error: err})
-//   }
-// })
-
 // GET saved courses
 // @pre: GET api/v1/users/saved?userID=...
 // @post: returns JSON arr of saved course info
@@ -64,14 +55,26 @@ router.get('/saved', async (req, res) => {
       return await req.models.Course.findOne({courseId : course})
     }))
 
-    const savedPreview = savedCourses.map(saved => {
-      {}
-      // need to extract information from savedCourses
+    const savedPreview = savedCourses.map(course => {
+      return {
+        // _id: course._id,
+        courseId: course.courseId,
+        courseNumber: course.courseNumber, 
+        courseTitle: course.courseTitle, 
+        avgRating: course.avgRating, 
+        courseCollege: course.courseCollege, 
+        credits: course.credits, 
+        tags: course.tags, 
+        reviews: course.reviews,
+        description: course.description,
+        genEdReqs: course.genEdReqs
+      }
     })
+    res.json({saved: savedPreview})
   } catch (err) {
     return res.status(500).json({status: "error", "error": err})
   }
-  res.send(savedPreview)
+  
 })
 
 // POST saved courses
@@ -80,18 +83,24 @@ router.get('/saved', async (req, res) => {
 // @post: saves courseId to savedCourse arr for user
 router.post('/saved', async (req, res) => {
   try {
-    let user = req.models.User.findOne({userId: req.body.userId})
+    let user = await req.models.User.findOne({userId: req.body.userId})
+    // if course not saved add it
     if (!user.savedCourses.includes(req.body.courseId)) {
       user.savedCourses.push(req.body.courseId)
       await user.save()
-      res.json({status: "success"})
+      return res.json({status: "success", message: "course added", saved: user.savedCourses})
     } else {
-      res.json({status: "success", message: "class already saved by user"})
+      // if course already added, remove it
+      let filteredCourses = user.savedCourses.filter(course => course != req.body.courseId)
+      user.savedCourses = filteredCourses
+      await user.save()
+      return res.json({status: "success", message: "course removed", saved: user.savedCourses})
     }
   } catch (err) {
     res.status(500).json({status: "error", error: err})
   }
 
 })
+
 
 export default router;
