@@ -3,21 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <title>!Graduated</title>
-  <link rel="stylesheet" href="stylesheets/index.css">
-  <link rel="stylesheet" href="stylesheets/courses.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="stylesheets/index.css" />
+  <link rel="stylesheet" href="stylesheets/courses.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
   <script src="javascripts/index.js"></script>
-
 </head>
-<body onload="checkLoginStatus(); init()">
-  <!-- Navigation -->
-  <!-- <nav class="navbar">
-    <a href="/" class="logo">!Graduated</a>
-    <a href="/signin" class="btn-login">Log In</a>
-  </nav> -->
 
-  <!-- App View (Logged In) -->
+<body onload="checkLoginStatus(); init()">
   <div id="app" class="app">
     <nav class="navbar">
       <a href="/" class="logo">!Graduated</a>
@@ -26,9 +19,9 @@
         <button class="nav-btn" onclick="goSaved()">Saved</button>
         <button class="nav-btn" onclick="goProfile()">Profile</button>
       </div>
-      <a href="/courses.html" id="course-btn" class="btn-login">Courses</a>
-      <a href="/signin" id="login-btn" class="btn-login">Log In</a>
-      <a href="/signout" id="logout-btn" class="btn-login hidden">Log Out</a>
+      <a href="/courses.html" id="course-btn" class="auth-btn">Courses</a>
+      <a href="/signin" id="login-btn" class="auth-btn login-btn">Log In</a>
+      <a href="/signout" id="logout-btn" class="auth-btn hidden">Log Out</a>
     </nav>
 
     <div id="courses" class="page">
@@ -37,55 +30,38 @@
         <div id="courses-results" class="card-grid">This will show your added courses or full listings.</div>
       </div>
     </div>
-    <script>
 
-      async function init()  {
-        console.log("in allcourses init")
+    <script>
+      async function init() {
+        console.log("in allcourses init");
         document.getElementById("courses-results").innerText = "Loading...";
 
         const courses = await fetch('api/v1/course');
         const coursesJson = await courses.json();
-        console.log(coursesJson)
-        console.log(coursesJson[0])
-
+        console.log(coursesJson);
+        console.log(coursesJson[0]);
 
         document.getElementById("courses-results").innerHTML = coursesJson.length
-        ? (coursesJson.map(course =>
-        `
-          <div class="card" id="${course.courseId}" style="margin-bottom: 1rem;">
-              <div style="display: flex; justify-content: space-between;">
+          ? (coursesJson.map(course =>
+            `
+              <div class="card" id="${course.courseId}" style="margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between;">
                   <h3>${course.courseId}: ${course.courseTitle}</h3>
+                </div>
+                <p>College: ${course.courseCollege}</p>
+                <p>Credits: ${course.credits}</p>
+                <button onclick="selectCourse('${course.courseId}')"> View Course </button>
               </div>
-              <p>College: ${course.courseCollege}</p>
-              <p>Credits: ${course.credits}</p>
-              <button onclick="selectCourse('${course.courseId}')"> View Course </button>
-          </div>
-          `
+            `
           )).join("")
-    :
-    ` <p>No matching courses found</p>`
-
-
-        // const params = new URLSearchParams(window.location.search)
-        // console.log(params)
-        // // const {courseId} = params;
-
-        // const data = await fetch(`/api/v1/course/search?${params.toString()}`)
-        // const res = await data.json()
-        // const courseInfo = res.course[0]
-        // console.log(courseInfo)
+          : `<p>No matching courses found</p>`;
       }
 
       async function selectCourse(id) {
-    console.log("selectCourse")
-    // const courseId = event.id; // FIND WAY TO GET COURSE ID FROM DYNAMIC HTML ELEMENT
-
-    location.href = `/course_detail.html?course=${id}`;
-    }
-
-
-
-
+        console.log("selectCourse");
+        location.href = `/course_detail.html?course=${id}`;
+      }
     </script>
+  </div>
 </body>
 </html>
