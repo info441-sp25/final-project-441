@@ -22,7 +22,7 @@ const classSchema = new mongoose.Schema({
 })
 
 const userSchema = new mongoose.Schema({
-    userId: Number,
+    userId: String,
     username: String,
     major: String,
     biography: String,
