@@ -69,6 +69,8 @@ async function toggleBookmark(courseId) {
     const userJson = await user.json()
     const userId = userJson.userInfo.username
 
+    console.log("this is the user id in toggle bookmark", userId)
+
     const res = await fetch(`api/v1/user/saved`, {
         method: "POST",
         body: JSON.stringify({courseId: courseId, userId: userId}), 
@@ -77,6 +79,8 @@ async function toggleBookmark(courseId) {
 
     const data = await res.json()
     const userCourses = data.saved
+
+    console.log("these are the savedCourses in toggle bookmark", userCourses)
 
     const card = document.getElementById(courseId)
     const btn = card.querySelector('button')
