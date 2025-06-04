@@ -4,72 +4,42 @@
   <meta charset="UTF-8" />
   <title>!Graduated</title>
   <link rel="stylesheet" href="stylesheets/index.css">
-  <link rel="stylesheet" href="stylesheets/search_results.css">    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="stylesheets/search_results.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <script src="javascripts/index.js"></script>
   <script src="javascripts/results.js"></script>
-
-
 </head>
+
 <body onload="checkLoginStatus(); loadContent()">
 
   <div id="app" class="app">
+    <!-- Navbar -->
     <nav class="navbar">
       <a href="/" class="logo">!Graduated</a>
-      <div class="tabs hidden" id="tabs">
-        <button class="tab" onclick="goHome()">Home</button>
-        <button class="tab" onclick="goSaved()">Saved</button>
-        <button class="tab" onclick="goProfile()">Profile</button>
-        <button class="tab" onclick="goHome()">Profile</button>
-      </div>
-      <div class="auth-buttons">
-        <a href="/courses.html" id="course-btn" class="auth-btn">Courses</a>
-        <a href="/signin" id="login-btn" class="auth-btn login-btn">Log In</a>
-        <a href="/signout" id="logout-btn" class="auth-btn hidden">Log Out</a>
+      <div class="navbar-right">
+        <div class="nav-tabs" id="tabs">
+          <button class="nav-btn" onclick="goHome()">Home</button>
+          <button class="nav-btn" onclick="goSaved()">Saved</button>
+          <button class="nav-btn" onclick="goProfile()">Profile</button>
+        </div>
+        <div class="auth-buttons">
+          <a href="/courses.html" id="course-btn" class="auth-btn">Courses</a>
+          <a href="/signin" id="login-btn" class="auth-btn login-btn">Log In</a>
+          <a href="/signout" id="logout-btn" class="auth-btn hidden">Log Out</a>
+        </div>
       </div>
     </nav>
 
+    <!-- Page Content -->
     <div class="page">
       <button class="back-btn" onclick="history.back()">← Back to Search</button>
+
       <div class="container">
         <h1 id="mathcing-courses-h1">Matching Courses</h1>
-        <div id="courses-results" class="card-grid">No search results found.</div>
+        <div id="courses-results" class="results-list">No search results found.</div>
       </div>
     </div>
-
-    <!-- <script>
-      async function fetchJSON(route) {
-        const res = await fetch(route);
-        return await res.json();
-      }
-
-      async function init() {
-        const params = new URLSearchParams(window.location.search);
-        const course = params.get('course');
-        const department = params.get('department');
-        const quarter = params.get('quarter');
-
-        const query = new URLSearchParams();
-        if (course) query.append('name', course);
-        if (department) query.append('department', department);
-        if (quarter) query.append('quarter', quarter);
-
-        const results = await fetchJSON(`/api/v1/courses?${query.toString()}`);
-
-        const container = document.getElementById("courses-results");
-        container.innerHTML = results.length === 0
-          ? "<p>No courses found.</p>"
-          : results.map(course => `
-            <div class="card">
-              <h3>${course.courseCode}: ${course.courseName}</h3>
-              <p>${course.courseDescription}</p>
-            </div>
-          `).join('');
-      }
-
-      window.addEventListener("DOMContentLoaded", init);
-    </script> -->
-
   </div>
 </body>
 </html>
