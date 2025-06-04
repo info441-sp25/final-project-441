@@ -35,33 +35,33 @@ async function goSaved() {
 
   location.href = "/saved.html";
 
-  const res = await fetch('/api/v1/user/myIdentity');
-  const data = await res.json();
-  const userId = data?.userInfo?.username;
+  // const res = await fetch('/api/v1/user/myIdentity');
+  // const data = await res.json();
+  // const userId = data?.userInfo?.username;
 
-  if (!userId) {
-    alert("You must be logged in to view saved courses.");
-    return;
-  }
+  // if (!userId) {
+  //   alert("You must be logged in to view saved courses.");
+  //   return;
+  // }
 
-  let saved = await fetch(`/api/v1/user/saved?userId=${userId}`);
-  let savedJSON = await saved.json();
-  let savedHTML = savedJSON.saved.map(post => {
-    return `
-      <div class="container">
-        <h3>${post.courseCode}: ${post.courseName}</h3>
-        <p>${post.courseDescription}</p>
-      </div>
-    `
-  }).join('');
+  // let saved = await fetch(`/api/v1/user/saved?userId=${userId}`);
+  // let savedJSON = await saved.json();
+  // let savedHTML = savedJSON.saved.map(post => {
+  //   return `
+  //     <div class="container">
+  //       <h3>${post.courseCode}: ${post.courseName}</h3>
+  //       <p>${post.courseDescription}</p>
+  //     </div>
+  //   `
+  // }).join('');
 
 
-  window.addEventListener("DOMContentLoaded", () => {
-    const savedResultsBox = document.getElementById("saved-results");
-    if (savedResultsBox) {
-      savedResultsBox.innerHTML = savedHTML;
-    }
-  });
+  // window.addEventListener("DOMContentLoaded", () => {
+  //   const savedResultsBox = document.getElementById("saved-results");
+  //   if (savedResultsBox) {
+  //     savedResultsBox.innerHTML = savedHTML;
+  //   }
+  // });
 }
 
 async function searchCourse(event) {
