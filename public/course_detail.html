@@ -153,7 +153,7 @@
 
         const miscString = areas
         ? `${courseInfo.credits} Credits | ${areas} | Avg. Rating: N/A`
-        : `${courseInfo.credits} Credits | Avg. Rating: ${revs}`
+        : `${courseInfo.credits} Credits | Avg. Rating: N/a`
         document.getElementById("misc").innerHTML = `<b> ${miscString} </b>`
 
         await loadReviews(courseInfo.courseId)
