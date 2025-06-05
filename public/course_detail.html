@@ -93,7 +93,7 @@
 
         console.log("this is the load Reviews result", res)
 
-        document.getElementById('reviews').innerHTML = res 
+        document.getElementById('reviews').innerHTML = res && res.length > 0 
         ? (res.map(review => 
           `<div class="card" style="margin-bottom: 1rem;">
               <h3>${review.comment}</h3>
