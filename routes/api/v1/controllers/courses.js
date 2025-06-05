@@ -194,10 +194,12 @@ router.post('/review', async (req, res) => {
 router.get('/review', async (req, res) => {
     try {
         const course = await req.models.Class.findOne({courseId: req.query.courseId})
-
+        console.log("This is the course for which getting reviews", course)
         const reviewArr = await Promise.all(course.reviews.map(async review => {
             return await req.models.Review.findOne({_id: review})
         }))
+
+        console.log("arr of reviews from db", reviewArr)
 
         const reviewRes = reviewArr.map(review => {(
             {
@@ -205,6 +207,8 @@ router.get('/review', async (req, res) => {
                 user: review.user
             }
         )})
+
+        console.log("what's being sent back", reviewRes)
 
         res.json(reviewRes)
     } catch (err) {
