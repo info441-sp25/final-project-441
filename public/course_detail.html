@@ -89,7 +89,7 @@
 
       async function loadReviews(courseId) {
         let data = await fetch(`api/v1/course/review?courseId=${courseId}`)
-        let res = data.json()
+        let res = await data.json()
 
         console.log("this is the load Reviews result", res)
 
