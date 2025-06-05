@@ -45,17 +45,35 @@
       <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <h1> Reviews</h1>
-          <button style="background: none; border: none;"> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+          <button onclick="openReview()" style="background: none; border: none;"> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
             <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
           </svg> </button>
         </div>
-        <h3 id="reviews">Reviews will go here!</h3>
-
+        <div id="reviewForm" class="hidden">
+          <textarea id="reviewText" placeholder="Write your review..." rows="4"></textarea>
+          <br>
+          <button onclick="submitReview()">Submit</button>
+        </div>
+        <div id="reviews" class="results-list"></div>
       </div>
     </div>
 
     <script>
+      // opens the review box
+      async function openReview() {
+        let user = await fetch('api/v1/user/myIdentity')
+        let userJson = await user.json()
+        if (userJson.status == 'loggedout') {
+          alert("Please log in to leave a review")
+          return
+        } 
+        document.getElementById("reviewForm").classList.remove("hidden")
+      }
+
+      async function submitReview() {
+
+      }
       // on page load, check session for current coursecode, call coursedetails
       // endpoint to get course data, and fill in html with those fields
       async function init()  {
@@ -70,17 +88,6 @@
         const courseInfo = res.course[0]
         console.log(courseInfo)
 
-        // console.log(courseInfo.course.courseId)
-
-
-
-        // const courseCode = res.session.courseCode; // uses req.sessions, not cache rn (but could)
-        // let response = await fetch('/api/v1/courses/courseDetails?courseCode='+courseCode)
-        // let courseJson = await response.json()
-
-        // Only included what I saw in the api swagger documentation,
-        // but if all the stuff we have in the project proposal (prereqs, course sites,
-        // tags) exist we can add those too
         document.getElementById("courseCode").innerText = courseInfo.courseId
         document.getElementById("courseNameLong").innerText = courseInfo.courseTitle
         document.getElementById("desc").innerText = courseInfo.description
@@ -99,13 +106,6 @@
           "EnglishComposition":"English Composition",
           "Writing":"Writing"
         }
-
-        // potentialAreas.forEach(area => {
-        //   if (courseInfo.genEdReqs[area]) {
-        //     areas += newAreas[area] + ", ";
-        //     console.log(areas);
-        //   }
-        // })
 
         courseInfo.genEdReqs.forEach(element => {
           areas += newAreas[element] + ", "

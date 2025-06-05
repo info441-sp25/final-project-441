@@ -33,9 +33,9 @@ const userSchema = new mongoose.Schema({
 })
 
 const reviewSchema = new mongoose.Schema({
-    reviewId: String,
     numStars: Number,
-    comment: String
+    comment: String, 
+    user: String
 })
 
 // model

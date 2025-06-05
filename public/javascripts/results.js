@@ -1,8 +1,5 @@
 async function loadContent() {
     const params = new URLSearchParams(window.location.search)
-    // const course = params.get("course")
-    // const department = params.get("department")
-    // const quarter = params.get("quarter")
 
     let data = await fetch(`/api/v1/course/search?${params.toString()}`)
     let res = await data.json()
@@ -37,7 +34,6 @@ async function loadContent() {
     // console.log("the course body", res.course)
 
 
-    // TO DO: make courses appear as grid instead of as separate columns
     document.getElementById("courses-results").innerHTML = 
     Array.isArray(course) && course.length
     ? (course.map(course =>
@@ -63,9 +59,6 @@ async function loadContent() {
 }
 
 async function toggleBookmark(courseId) {
-    // check if the course is saved for the user
-    // if yes: remove course (unfilled icon)
-    // if no: add course (filled icon)
     const user = await fetch('/api/v1/user/myIdentity')
     const userJson = await user.json()
     const userId = userJson.userInfo.username
