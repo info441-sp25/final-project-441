@@ -73,7 +73,7 @@
 
       // TO DO:: handle empty/ add cancel button
       async function submitReview() {
-        const review = document.getElementById(reviewText).value
+        const review = document.getElementById("reviewText").value
         document.getElementById("reviewForm").classList.add("hidden")
         const params = URLSearchParams(window.location.search)
         const courseId = params.get('course')
@@ -155,7 +155,7 @@
         : `${courseInfo.credits} Credits | Avg. Rating: ${revs}`
         document.getElementById("misc").innerHTML = `<b> ${miscString} </b>`
 
-        document.getElementById('reviews').innerHTML = await loadReviews(ourseInfo.courseId)
+        document.getElementById('reviews').innerHTML = await loadReviews(courseInfo.courseId)
       }
 
       function avg(arr) {
