@@ -108,7 +108,6 @@
       // on page load, check session for current coursecode, call coursedetails
       // endpoint to get course data, and fill in html with those fields
 
-      // TO DO: add loadReview funciton call somewhere here
       async function init()  {
         console.log("in detail init")
         document.getElementById("courseNameLong").innerText = "Loading...";
@@ -148,16 +147,16 @@
         console.log(areas)
 
 
-        const revs = avg(courseInfo.reviews)
+        // const revs = avg(courseInfo.reviews)
         console.log(revs)
         console.log(courseInfo.credits)
 
         const miscString = areas
-        ? `${courseInfo.credits} Credits | ${areas} | Avg. Rating: ${revs}`
+        ? `${courseInfo.credits} Credits | ${areas} | Avg. Rating: N/A`
         : `${courseInfo.credits} Credits | Avg. Rating: ${revs}`
         document.getElementById("misc").innerHTML = `<b> ${miscString} </b>`
 
-        document.getElementById('reviews').innerHTML = await loadReviews(courseInfo.courseId)
+        await loadReviews(courseInfo.courseId)
       }
 
       function avg(arr) {
