@@ -62,8 +62,8 @@
     <script>
       // opens the review box
       async function openReview() {
-        let user = await fetch('api/v1/user/myIdentity')
-        let userJson = await user.json()
+        const user = await fetch('api/v1/user/myIdentity')
+        const userJson = await user.json()
         if (userJson.status == 'loggedout') {
           alert("Please log in to leave a review")
           return
@@ -71,11 +71,42 @@
         document.getElementById("reviewForm").classList.remove("hidden")
       }
 
+      // TO DO:: handle empty/ add cancel button
       async function submitReview() {
+        const review = document.getElementById()
+        document.getElementById("reviewForm").classList.add("hidden")
+        const params = URLSearchParams(window.location.search)
+        const courseId = params.get('course')
+        await fetch('api/v1/course/review', {
+          method: 'POST',
+            body: JSON.stringify({courseId: courseId, review: review}),
+            headers: {'Content-Type': 'application/json'
+          }
+        })
 
+        await loadReviews(courseId)
       }
+
+      async function loadReview(courseId) {
+        let data = await fetch(`api/v1/course/review?courseId=${courseId}`)
+        let res = data.json()
+
+        document.getElementById('reviews').innerHTML = res 
+        ? (res.map(review => 
+          `<div class="card" style="margin-bottom: 1rem;">
+              <h3>${review.comment}</h3>
+              <p>User: ${review.user}</p>
+          `
+        )).join("")
+        : 
+        "<p>No reviews for this course yet</p>"
+      }
+
+
       // on page load, check session for current coursecode, call coursedetails
       // endpoint to get course data, and fill in html with those fields
+
+      // TO DO: add loadReview funciton call somewhere here
       async function init()  {
         console.log("in detail init")
         document.getElementById("courseNameLong").innerText = "Loading...";
@@ -124,6 +155,7 @@
         : `${courseInfo.credits} Credits | Avg. Rating: ${revs}`
         document.getElementById("misc").innerHTML = `<b> ${miscString} </b>`
 
+        document.getElementById('reviews').innerHTML = await loadReviews(ourseInfo.courseId)
       }
 
       function avg(arr) {

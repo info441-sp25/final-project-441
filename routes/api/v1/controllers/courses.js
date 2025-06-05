@@ -169,4 +169,48 @@ router.post('/', async (req, res) => {
 
 })
 
+router.post('/review', async (req, res) => {
+    try {
+        const { courseId, review } = req.body
+        const username = req.session.account.username
+
+        let newReview = new req.models.Review({
+            comment: review, 
+            user: username, 
+            courseId: courseId
+        })
+        await newReview.save()
+
+        const course = await req.models.Class.findOne({courseId: courseId})
+        course.reviews.push(newReview._id.toString())
+        await course.save()
+
+        res.json({status: 'success', message: "added new review to db"})
+    } catch (err) {
+        res.status(500).json({status: "error", error: err.message})
+    }
+})
+
+router.get('/review', async (req, res) => {
+    try {
+        const course = await req.models.Class.findOne({courseId: req.query.courseId})
+
+        const reviewArr = await Promise.all(course.reviews.map(async review => {
+            return await req.models.Review.findOne({_id: review})
+        }))
+
+        const reviewRes = reviewArr.map(review => {(
+            {
+                comment: review.comment, 
+                user: review.user
+            }
+        )})
+
+        res.json(reviewRes)
+    } catch (err) {
+        res.status(500).json({status: "error", error: err.message})
+    }
+    
+})
+
 export default router

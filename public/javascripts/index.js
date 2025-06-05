@@ -52,12 +52,12 @@ async function searchCourse(event) {
   location.href = `/search_results.html?${params.toString()}`;
 }
 
-async function saveCourse(courseId, userId) {
-  await fetch(`/api/v1/user/saved`, {
-    method: "POST",
-    body: {courseId: courseId, userId: userId}
-  });
-}
+// async function saveCourse(courseId, userId) {
+//   await fetch(`/api/v1/user/saved`, {
+//     method: "POST",
+//     body: {courseId: courseId, userId: userId}
+//   });
+// }
 
 function goHome() {
   location.href = "/index.html";

@@ -35,7 +35,8 @@ const userSchema = new mongoose.Schema({
 const reviewSchema = new mongoose.Schema({
     numStars: Number,
     comment: String, 
-    user: String
+    user: String, 
+    courseId: String
 })
 
 // model
