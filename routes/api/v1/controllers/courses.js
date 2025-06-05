@@ -201,12 +201,11 @@ router.get('/review', async (req, res) => {
 
         console.log("arr of reviews from db", reviewArr)
 
-        const reviewRes = reviewArr.map(review => {(
+        const reviewRes = reviewArr.map(review => (
             {
                 comment: review.comment, 
                 user: review.user
-            }
-        )})
+            }))
 
         console.log("what's being sent back", reviewRes)
 
