@@ -91,6 +91,8 @@
         let data = await fetch(`api/v1/course/review?courseId=${courseId}`)
         let res = data.json()
 
+        console.log("this is the load Reviews result", res)
+
         document.getElementById('reviews').innerHTML = res 
         ? (res.map(review => 
           `<div class="card" style="margin-bottom: 1rem;">
