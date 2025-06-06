@@ -26,13 +26,13 @@ async function initSaved() {
     } else {
       container.innerHTML = savedCourses.map(course => `
         <div class="card" id="${course.courseId}">
-          <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <h3>${course.courseId}: ${course.courseTitle}</h3>
 
             ${isBookmarked ?
               (isBookmarked.includes(course.courseId) ?
-              `<button style="background-color: #e6e6fa;" onclick="toggleBookmark('${course.courseId}')"> <img src="img/bookmark-fill.svg"> </button>`
-              : `<button style="background-color: #e6e6fa;" onclick="toggleBookmark('${course.courseId}')"> <img src='img/bookmark.svg'> </button>`)
+              `<button style="background-color: #e6e6fa; align-items: flex-start;" onclick="toggleBookmark('${course.courseId}')"> <img src="img/bookmark-fill.svg"> </button>`
+              : `<button style="background-color: #e6e6fa; align-items: flex-start;" onclick="toggleBookmark('${course.courseId}')"> <img src='img/bookmark.svg'> </button>`)
               : ""}
           </div>
           <p>College: ${course.courseCollege}</p>
