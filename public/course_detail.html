@@ -152,9 +152,9 @@
         `<div style="display: flex; justify-content: space-between;">
           <h1>${courseInfo.courseId}</h1>
           ${isBookmarked ?
-                  (isBookmarked.includes(course.courseId) ?
-                  `<button style="background-color: #e6e6fa;" onclick="toggleBookmark('${course.courseId}')"> <img src="img/bookmark-fill.svg"> </button>`
-                  : `<button style="background-color: #e6e6fa;" onclick="toggleBookmark('${course.courseId}')"> <img src='img/bookmark.svg'> </button>`)
+                  (isBookmarked.includes(courseInfo.courseId) ?
+                  `<button style="background-color: #e6e6fa;" onclick="toggleBookmark('${courseInfo.courseId}')"> <img src="img/bookmark-fill.svg"> </button>`
+                  : `<button style="background-color: #e6e6fa;" onclick="toggleBookmark('${courseInfo.courseId}')"> <img src='img/bookmark.svg'> </button>`)
                   : ""}
           </div>`
         
