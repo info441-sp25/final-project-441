@@ -19,6 +19,26 @@
   transform: scale(1.05);
 }
 
+#bookmark {
+  margin-top: auto;
+  padding: 10px 16px;
+  background-color: #4B2E83;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  align-self: flex-start;
+}
+
+#bookmark:hover {
+  background-color: #3a1f6d;
+  transform: scale(1.03);
+}
+
+
 /* === Container === */
 .container {
   background-color: white;
