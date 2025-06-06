@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <script src="javascripts/index.js"></script>
+  <script src="javascripts/results.js"></script>
+
 </head>
 
 <body onload="checkLoginStatus(); init()">
@@ -45,7 +47,7 @@
     <div id="saved" class="page">
       <button class="back-btn" onclick="history.back()">← Back to All Courses</button>
       <div class="container">
-        <h1 id="courseCode"></h1>
+        <div id="courseCode"></div>
         <h2 id="courseNameLong"></h2>
         <div id="desc"></div>
         <br>
@@ -142,7 +144,21 @@
         const courseInfo = res.course[0]
         console.log(courseInfo)
 
-        document.getElementById("courseCode").innerText = courseInfo.courseId
+        const identityRes = await fetch("api/v1/user/myIdentity");
+        const identity = await identityRes.json();
+        const isBookmarked = identity.status == 'loggedin' ? identity.userInfo.savedCourses: null
+
+        document.getElementById("courseCode").innerHTML = 
+        `<div style="display: flex; justify-content: space-between;">
+          <h1>${courseInfo.courseId}</h1>
+          ${isBookmarked ?
+                  (isBookmarked.includes(course.courseId) ?
+                  `<button style="background-color: #e6e6fa;" onclick="toggleBookmark('${course.courseId}')"> <img src="img/bookmark-fill.svg"> </button>`
+                  : `<button style="background-color: #e6e6fa;" onclick="toggleBookmark('${course.courseId}')"> <img src='img/bookmark.svg'> </button>`)
+                  : ""}
+          </div>`
+        
+       
         document.getElementById("courseNameLong").innerText = courseInfo.courseTitle
         document.getElementById("desc").innerText = courseInfo.description
 
