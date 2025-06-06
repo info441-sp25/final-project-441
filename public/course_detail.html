@@ -97,6 +97,9 @@
       async function submitReview() {
         const review = document.getElementById("reviewText").value
         document.getElementById("reviewForm").classList.add("hidden")
+        if (!review) {
+          return
+        }
         const params = new URLSearchParams(window.location.search)
         const courseId = params.get('course')
         await fetch('api/v1/course/review', {
