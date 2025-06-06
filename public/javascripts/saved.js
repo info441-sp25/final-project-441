@@ -18,6 +18,9 @@ async function initSaved() {
     const savedCourses = json.saved;
 
     const container = document.getElementById("saved-results");
+
+    const isBookmarked = identity.status == 'loggedin' ? identity.userInfo.savedCourses: null
+
     if (!savedCourses || savedCourses.length === 0) {
       container.innerHTML = "<p>No saved courses yet.</p>";
     } else {
@@ -25,6 +28,12 @@ async function initSaved() {
         <div class="card" id="${course.courseId}">
           <div style="display: flex; justify-content: space-between;">
             <h3>${course.courseId}: ${course.courseTitle}</h3>
+
+            ${isBookmarked ?
+              (isBookmarked.includes(course.courseId) ?
+              `<button style="background-color: #e6e6fa;" onclick="toggleBookmark('${course.courseId}')"> <img src="img/bookmark-fill.svg"> </button>`
+              : `<button style="background-color: #e6e6fa;" onclick="toggleBookmark('${course.courseId}')"> <img src='img/bookmark.svg'> </button>`)
+              : ""}
           </div>
           <p>College: ${course.courseCollege}</p>
           <p>Credits: ${course.credits}</p>
