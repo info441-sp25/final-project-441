@@ -67,7 +67,7 @@
         if (userJson.status == 'loggedout') {
           alert("Please log in to leave a review")
           return
-        } 
+        }
         document.getElementById("reviewForm").classList.remove("hidden")
       }
 
@@ -93,16 +93,16 @@
 
         console.log("this is the load Reviews result", res)
 
-        document.getElementById('reviews').innerHTML = Array.isArray(res) && res.length > 0 
-        ? res.map(review => 
-          `<div class="card" style="margin-bottom: 1rem;">
-              <h3>${review.comment}</h3>
-              <p>-${review.user}</p>
-          </div>`
-        ).join("")
-        : 
-        "<p>No reviews for this course yet</p>"
+        document.getElementById('reviews').innerHTML = Array.isArray(res) && res.length > 0
+  ? res.map(review =>
+    `<div class="review-item">
+      <p class="review-text">${review.comment}</p>
+      <p class="review-author">– ${review.user}</p>
+    </div>`
+  ).join("")
+  : "<p>No reviews for this course yet</p>"
       }
+
 
 
       // on page load, check session for current coursecode, call coursedetails

@@ -181,3 +181,81 @@ h1.page-title, h2 {
     font-size: 2rem;
   }
 }
+
+/* === Review Section === */
+#reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.review-item {
+  background-color: #ffffff;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  width: 100%;
+  transition: box-shadow 0.3s ease;
+}
+
+.review-item:hover {
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.review-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2f2f2f;
+  margin: 0;
+}
+
+.review-author {
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 0.4rem;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 2rem;
+}
+
+.review-form textarea {
+  resize: vertical;
+  min-height: 100px;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.review-form button {
+  align-self: flex-start;
+  background-color: #4B2E83;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.review-form button:hover {
+  background-color: #3a256a;
+}

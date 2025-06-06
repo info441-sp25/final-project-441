@@ -29,7 +29,24 @@
     <div id="courses" class="page">
       <div class="container">
         <h2>All Courses</h2>
-        <div id="courses-results" class="card-grid">This will show your added courses or full listings.</div>
+        <div id="reviews" class="review-list"></div>
+
+        <!-- 🔽 Review Section Starts Here -->
+        <div id="reviews">
+          <form class="review-form" onsubmit="submitReview(event)">
+            <textarea id="review-text" placeholder="Write your review..." required></textarea>
+            <button type="submit">Submit</button>
+          </form>
+
+          <div class="review-list" id="review-list">
+            <div class="review-item">
+              <p class="review-text">Really helpful course listing page!</p>
+              <p class="review-author">– sanjanap@uw.edu</p>
+            </div>
+          </div>
+        </div>
+        <!-- 🔼 Review Section Ends Here -->
+
       </div>
     </div>
 
@@ -62,6 +79,21 @@
       async function selectCourse(id) {
         console.log("selectCourse");
         location.href = `/course_detail.html?course=${id}`;
+      }
+
+      function submitReview(event) {
+        event.preventDefault();
+        const text = document.getElementById("review-text").value.trim();
+        if (!text) return;
+
+        const reviewHTML = `
+          <div class="review-item">
+            <p class="review-text">${text}</p>
+            <p class="review-author">– You</p>
+          </div>
+        `;
+        document.getElementById("review-list").insertAdjacentHTML("afterbegin", reviewHTML);
+        document.getElementById("review-text").value = "";
       }
     </script>
   </div>
