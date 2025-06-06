@@ -29,21 +29,20 @@
     <div id="courses" class="page">
       <div class="container">
         <h2>All Courses</h2>
-        <div id="reviews" class="review-list"></div>
-
+        <div id="courses-results" class="card-grid"></div>
         <!-- Review Section Starts Here -->
-        <div id="reviewForm" class="review-form hidden">
+        <!-- <div id="reviewForm" class="review-form hidden">
           <textarea id="reviewText" placeholder="Write your review..." rows="4"></textarea>
           <button onclick="submitReview()">Submit</button>
         </div>
 
           <div class="review-list" id="review-list">
             <div class="review-item">
-              <p class="review-text">Really helpful course listing page!</p>
-              <p class="review-author">– sanjanap@uw.edu</p>
+              <p class="review-text"></p>
+              <p class="review-author"></p>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- Review Section Ends Here -->
 
       </div>
@@ -80,20 +79,20 @@
         location.href = `/course_detail.html?course=${id}`;
       }
 
-      function submitReview(event) {
-        event.preventDefault();
-        const text = document.getElementById("review-text").value.trim();
-        if (!text) return;
+      // function submitReview(event) {
+      //   event.preventDefault();
+      //   const text = document.getElementById("review-text").value.trim();
+      //   if (!text) return;
 
-        const reviewHTML = `
-          <div class="review-item">
-            <p class="review-text">${text}</p>
-            <p class="review-author">– You</p>
-          </div>
-        `;
-        document.getElementById("review-list").insertAdjacentHTML("afterbegin", reviewHTML);
-        document.getElementById("review-text").value = "";
-      }
+      //   const reviewHTML = `
+      //     <div class="review-item">
+      //       <p class="review-text">${text}</p>
+      //       <p class="review-author">– You</p>
+      //     </div>
+      //   `;
+      //   document.getElementById("review-list").insertAdjacentHTML("afterbegin", reviewHTML);
+      //   document.getElementById("review-text").value = "";
+      // }
     </script>
   </div>
 </body>
