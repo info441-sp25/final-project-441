@@ -52,6 +52,12 @@
   color: #333;
 }
 
+#review-button:hover {
+  background-color: #f0e8ff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 /* === Responsive Fixes === */
 @media (max-width: 768px) {
   .container {
