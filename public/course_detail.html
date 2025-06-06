@@ -149,7 +149,7 @@
         const isBookmarked = identity.status == 'loggedin' ? identity.userInfo.savedCourses: null
 
         document.getElementById("courseCode").innerHTML = 
-        `<div style="display: flex; justify-content: space-between;">
+        `<div id="${courseInfo.courseId}" style="display: flex; justify-content: space-between;">
           <h1>${courseInfo.courseId}</h1>
           ${isBookmarked ?
                   (isBookmarked.includes(courseInfo.courseId) ?
