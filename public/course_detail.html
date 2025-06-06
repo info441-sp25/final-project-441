@@ -70,7 +70,7 @@
     <script>
       // opens the review box
       async function openReview() {
-        if (document.getElemenyById("reviewForm").classList.contains("hidden")) {
+        if (document.getElementById("reviewForm").classList.contains("hidden")) {
           const user = await fetch('api/v1/user/myIdentity')
           const userJson = await user.json()
           if (userJson.status == 'loggedout') {
