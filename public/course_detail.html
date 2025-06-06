@@ -187,9 +187,10 @@
 
         console.log(courseInfo.credits)
 
+        let creditStr = courseInfo.credits > 1 ? "Credits" : "Credit"
         const miscString = areas
-        ? `${courseInfo.credits} Credits | ${areas} | Avg. Rating: N/A`
-        : `${courseInfo.credits} Credits | Avg. Rating: N/a`
+        ? `${courseInfo.credits} ${creditStr} | ${areas} | Avg. Rating: N/A`
+        : `${courseInfo.credits} ${creditStr} | Avg. Rating: N/a`
         document.getElementById("misc").innerHTML = `<b> ${miscString} </b>`
 
         await loadReviews(courseInfo.courseId)
