@@ -89,7 +89,7 @@
           document.getElementById("reviewForm").classList.remove("hidden")
         } else {
           document.getElementById("reviewForm").classList.add("hidden")
-          document.getElementById("reviewForm").innerText = ""
+          document.getElementById("reviewForm").value = ""
           return
         }
       }
@@ -98,7 +98,7 @@
       async function submitReview() {
         const review = document.getElementById("reviewText").value
         document.getElementById("reviewForm").classList.add("hidden")
-        document.getElementById("reviewForm").innerText = ""
+        document.getElementById("reviewForm").value = ""
         if (!review) {
           return
         }
