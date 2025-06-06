@@ -268,3 +268,8 @@ h1.page-title, h2 {
 #courses {
   max-width: 1700px;
 }
+
+#courses .container {
+  max-width: 1700px;
+  width:90%;
+}
