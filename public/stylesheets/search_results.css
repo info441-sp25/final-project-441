@@ -64,12 +64,12 @@
   color: #4B2E83;
   font-weight: 600;
   font-size: 1rem;
-  border: none;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   margin-bottom: 30px;
   cursor: pointer;
   transition: all 0.2s ease;
+  border: 2px solid #4B2E83;
 }
 
 .back-btn:hover {
