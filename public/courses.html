@@ -49,24 +49,9 @@
     </nav>
 
     <div id="courses" style="padding: 40px 20px 40px;" class="page">
-      <div class="container">
+      <div class="container" style="padding: 0;">
         <h2>All Courses</h2>
         <div id="courses-results" class="card-grid"></div>
-        <!-- Review Section Starts Here -->
-        <!-- <div id="reviewForm" class="review-form hidden">
-          <textarea id="reviewText" placeholder="Write your review..." rows="4"></textarea>
-          <button onclick="submitReview()">Submit</button>
-        </div>
-
-          <div class="review-list" id="review-list">
-            <div class="review-item">
-              <p class="review-text"></p>
-              <p class="review-author"></p>
-            </div>
-          </div>
-        </div> -->
-        <!-- Review Section Ends Here -->
-
       </div>
     </div>
 
@@ -82,7 +67,7 @@
         const identity = await identityRes.json();
         const isBookmarked = identity.status == 'loggedin' ? identity.userInfo.savedCourses: null
  
-        document.getElementById("courses-results").innerHTML = Array.isArray(courseJson) && courseJson.length > 0
+        document.getElementById("courses-results").innerHTML = Array.isArray(coursesJson) && coursesJson.length > 0
           ? (coursesJson.map(course =>
             `
               <div class="card" id="${course.courseId}" style="margin-bottom: 1rem;">
