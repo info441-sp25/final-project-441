@@ -26,7 +26,7 @@ async function initSaved() {
     } else {
       container.innerHTML = savedCourses.map(course => `
         <div class="card" id="${course.courseId}">
-          <div style="display: flex; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start">
             <h3>${course.courseId}: ${course.courseTitle}</h3>
 
             ${isBookmarked ?
