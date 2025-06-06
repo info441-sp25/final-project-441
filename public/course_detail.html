@@ -98,6 +98,7 @@
       async function submitReview() {
         const review = document.getElementById("reviewText").value
         document.getElementById("reviewForm").classList.add("hidden")
+        document.getElementById("reviewForm").innerText = ""
         if (!review) {
           return
         }
