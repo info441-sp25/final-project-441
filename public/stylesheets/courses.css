@@ -263,3 +263,13 @@ h1.page-title, h2 {
 .review-form button:hover {
   background-color: #3a256a;
 }
+
+
+#courses {
+  max-width: 1700px;
+}
+
+#courses .container {
+  max-width: 1700px;
+  width:90%;
+}
