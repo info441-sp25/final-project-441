@@ -52,9 +52,16 @@
   color: #333;
 }
 
+#review-button {
+  border: none;
+  background: none;
+  border-radius: 8px;
+  padding: 4px; /* Optional: gives the hover area some space */
+  transition: background-color 0.2s ease; /* Smooth hover */
+}
+
 #review-button:hover {
   background-color: #f0e8ff;
-  border-radius: 8px;
   cursor: pointer;
 }
 
