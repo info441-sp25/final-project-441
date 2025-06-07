@@ -20,7 +20,7 @@ async function checkLoginStatus() {
       const { name, major = "Not provided", bio = "Not provided" } = data.userInfo;
 
       // FUTURE WORK: display number of courses saved and num reviews made by user
-      const numSaved = Array.isArray(data.savedCourses) ? data.savedCourses.length : 0
+      const numSaved = Array.isArray(data.userInfo.savedCourses) ? data.userInfo.savedCourses.length : 0
       const rev = await fetch(`/api/v1/user/numReviews?userId=${data.userInfo.username}`)
       const revData = await rev.json()
       const numReviews = revData.numReviews
