@@ -3,6 +3,7 @@ function toggleLoginUI(isLoggedIn) {
   document.getElementById('tabs')?.classList.toggle('hidden', !isLoggedIn);
   document.getElementById('login-btn')?.classList.toggle('hidden', isLoggedIn);
   document.getElementById('all-courses-btn')?.classList.toggle('hidden', isLoggedIn);
+  document.getElementById('home-btn')?.classList.toggle('hidden', isLoggedIn);
   document.getElementById('logout-btn')?.classList.toggle('hidden', !isLoggedIn);
 }
 
@@ -12,7 +13,7 @@ async function checkLoginStatus() {
     const data = await res.json();
 
     const isLoggedIn = data?.status === "loggedin";
-    
+
     toggleLoginUI(isLoggedIn);
 
     if (isLoggedIn && data.userInfo) {
