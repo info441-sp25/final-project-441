@@ -31,8 +31,6 @@ async function loadContent() {
 
     const isBookmarked = userJson.status == "loggedin" ? userJson.userInfo.savedCourses  : null
     console.log("calculating the bookmark status", isBookmarked)
-    // console.log("the course body", res.course)
-
 
     document.getElementById("courses-results").innerHTML = 
     Array.isArray(course) && course.length
@@ -75,8 +73,6 @@ async function toggleBookmark(courseId) {
     const data = await res.json()
     const userCourses = data.saved
 
-    console.log("these are the savedCourses in toggle bookmark", userCourses)
-
     const card = document.getElementById(courseId)
     const btn = card.querySelector('button')
     const img = btn.querySelector('img')
@@ -89,8 +85,5 @@ async function toggleBookmark(courseId) {
 }
 
 async function selectCourse(id) {
-    console.log("selectCourse")
-    // const courseId = event.id; // FIND WAY TO GET COURSE ID FROM DYNAMIC HTML ELEMENT
-
     location.href = `/course_detail.html?course=${id}`;
 }

@@ -14,7 +14,6 @@ async function openReview() {
     }
 }
 
-// TO DO:: handle empty/ add cancel button
 async function submitReview() {
     const review = document.getElementById("reviewText").value
     document.getElementById("reviewForm").classList.add("hidden")

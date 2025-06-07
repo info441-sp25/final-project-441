@@ -14,6 +14,8 @@ async function checkLoginStatus() {
 
     const isLoggedIn = data?.status === "loggedin";
 
+    const numSaved = Array.isArray(data.savedCourses.length) ? data.savedCourses.length : 0
+
     toggleLoginUI(isLoggedIn);
 
     if (isLoggedIn && data.userInfo) {
@@ -24,6 +26,7 @@ async function checkLoginStatus() {
         userInfoDiv.innerHTML = `
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Major:</strong> ${major}</p>
+          <p><strong>Saved Courses:</strong> ${numSaved} </p>
           <p><strong>Bio:</strong> ${bio}</p>
         `;
       }
@@ -43,7 +46,6 @@ async function searchCourse(event) {
   const course = document.getElementById('course-input').value.trim();
   const department = document.getElementById('department-select').value;
   const level = document.getElementById('level-select').value;
-  // might want to change to level
 
   const params = new URLSearchParams({
     course,
