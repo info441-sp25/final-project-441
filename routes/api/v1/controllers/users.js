@@ -47,18 +47,14 @@ router.get('/saved', async (req, res) => {
   try {
     const user = await req.models.User.findOne({username : req.query.userId})
 
-    console.log("this is the user", user)
     if (!user) {
       return res.status(404).json({error: "User not found"})
     }
 
-    console.log("saved courses", user.savedCourses)
     // arr of saved courses
     const savedCourses = await Promise.all(user.savedCourses.map(async course => {
       return await req.models.Class.findOne({courseId : course})
     }))
-
-    console.log("these are the saved courses", savedCourses)
 
     const savedPreview = savedCourses.map(course => {
       return {
@@ -75,8 +71,6 @@ router.get('/saved', async (req, res) => {
         genEdReqs: course.genEdReqs
       }
     })
-    console.log("these are the course previews", savedPreview)
-
     res.json({saved: savedPreview})
   } catch (err) {
     return res.status(500).json({status: "error", "error": err.message})
@@ -90,23 +84,18 @@ router.get('/saved', async (req, res) => {
 // @post: saves courseId to savedCourse arr for user
 router.post('/saved', async (req, res) => {
   try {
-
-    console.log("this is the body", req.body)
     let user = await req.models.User.findOne({username: req.body.userId})
-    console.log("these are the saved courses", user.savedCourses)
 
     // if course not saved add it
     if (!user.savedCourses.includes(req.body.courseId)) {
       user.savedCourses.push(req.body.courseId)
       await user.save()
-      console.log("course added to user")
       return res.json({status: "success", message: "course added", saved: user.savedCourses})
     } else {
       // if course already added, remove it
       let filteredCourses = user.savedCourses.filter(course => course != req.body.courseId)
       user.savedCourses = filteredCourses
       await user.save()
-      console.log("course deleted from user")
       return res.json({status: "success", message: "course removed", saved: user.savedCourses})
     }
   } catch (err) {

@@ -1,6 +1,5 @@
 
 async function init() {
-    console.log("in allcourses init");
     document.getElementById("courses-results").innerText = "Loading...";
 
     const courses = await fetch('api/v1/course');
@@ -32,6 +31,5 @@ async function init() {
 }
 
 async function selectCourse(id) {
-    console.log("selectCourse");
     location.href = `/course_detail.html?course=${id}`;
 }

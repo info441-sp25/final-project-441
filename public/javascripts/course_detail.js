@@ -37,8 +37,6 @@ async function loadReviews(courseId) {
     let data = await fetch(`api/v1/course/review?courseId=${courseId}`)
     let res = await data.json()
 
-    console.log("this is the load Reviews result", res)
-
     document.getElementById('reviews').innerHTML = Array.isArray(res) && res.length > 0
     ? res.map(review =>
         `<div class="review-item" style="background-color: #ffffff; padding: 1rem 1.25rem; border-radius: 12px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08); max-width: 700px; width: 100%; margin-bottom: 1rem;">
@@ -52,16 +50,12 @@ async function loadReviews(courseId) {
 // on page load, check session for current coursecode, call coursedetails
 // endpoint to get course data, and fill in html with those fields
 async function init()  {
-    console.log("in detail init")
     document.getElementById("courseNameLong").innerText = "Loading...";
     const params = new URLSearchParams(window.location.search)
-    console.log(params)
 
     const data = await fetch(`/api/v1/course/search?${params.toString()}`)
     const res = await data.json()
     const courseInfo = res.course[0]
-    console.log(courseInfo)
-
     const identityRes = await fetch("api/v1/user/myIdentity");
     const identity = await identityRes.json();
     const isBookmarked = identity.status == 'loggedin' ? identity.userInfo.savedCourses: null
@@ -83,7 +77,6 @@ async function init()  {
     let areas = ""
     let potentialAreas = ["Diversity","EnglishComposition","IndividualsAndSocieties","NaturalWorld",
     "QuantitativeAndSymbolicReasoning", "VisualLiteraryAndPerformingArts", "Writing"]
-    console.log(potentialAreas)
 
     let newAreas = {
         "VisualLiteraryAndPerformingArts":"A&H",
@@ -100,9 +93,6 @@ async function init()  {
     });
 
     areas = areas.slice(0, areas.length - 2)
-    console.log(areas)
-
-    console.log(courseInfo.credits)
 
     let creditStr = courseInfo.credits > 1 ? "Credits" : "Credit"
     const miscString = areas

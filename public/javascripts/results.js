@@ -4,10 +4,6 @@ async function loadContent() {
     let data = await fetch(`/api/v1/course/search?${params.toString()}`)
     let res = await data.json()
 
-    console.log("params", params.toString())
-
-    console.log('this is the result', res)
-
     let course
     if (res.status == 404 || res.status == 500) {
         course = ""
@@ -15,8 +11,6 @@ async function loadContent() {
         course = res.course
     }
     if (res.create) {
-        console.log("entered this if statement")
-        console.log(res.course)
         await fetch(`/api/v1/course`, {
             method: 'POST',
             body: JSON.stringify(res.course),
@@ -26,11 +20,7 @@ async function loadContent() {
 
     const user = await fetch('/api/v1/user/myIdentity')
     const userJson = await user.json()
-    console.log("user info", userJson)
-
-
     const isBookmarked = userJson.status == "loggedin" ? userJson.userInfo.savedCourses  : null
-    console.log("calculating the bookmark status", isBookmarked)
 
     document.getElementById("courses-results").innerHTML = 
     Array.isArray(course) && course.length
@@ -60,10 +50,6 @@ async function toggleBookmark(courseId) {
     const user = await fetch('/api/v1/user/myIdentity')
     const userJson = await user.json()
     const userId = userJson.userInfo.username
-
-    console.log("this is the user id in toggle bookmark", userId)
-    console.log("this is the courseId in toggle bookmark", courseId)
-
     const res = await fetch(`/api/v1/user/saved`, {
         method: "POST",
         body: JSON.stringify({courseId: courseId, userId: userId}),

@@ -3,19 +3,6 @@ import fetch from 'node-fetch'
 
 var router = express.Router();
 
-// repurposed course/ endpoint to return all courses
-router.get('/', async (req, res) => {
-    const coursesObj = await req.models.Class.find()
-    // const coursesJson = await coursesObj.json()
-    console.log("in allcourses endpoint")
-    // console.log(coursesObj)
-
-    // const courseJson = await coursesObj.json()
-
-    res.json(coursesObj)
-    
-})
-
 // coursecode case endpoint (for detail view) - same as ^ but w/ primary key
     // Still lwkey unsure how we want frontend rendering  to happen... will talk about it
 // @pre: request in form of GET api/{version}/courses/courseDetails?courseCode=...
