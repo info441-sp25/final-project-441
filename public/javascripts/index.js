@@ -18,7 +18,10 @@ async function checkLoginStatus() {
 
     if (isLoggedIn && data.userInfo) {
       const { name, major = "Not provided", bio = "Not provided" } = data.userInfo;
-      const numSaved = Array.isArray(data.savedCourses.length) ? data.savedCourses.length : 0
+      const numSaved = Array.isArray(data.savedCourses) ? data.savedCourses.length : 0
+      const rev = await fetch(`/api/v1/user/numReviews?userId=${data.userInfo.usernmae}`)
+      const revData = await res.json()
+      const numReviews = revData.numReviews
 
       const userInfoDiv = document.getElementById('user-info');
       if (userInfoDiv) {
@@ -26,6 +29,7 @@ async function checkLoginStatus() {
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Major:</strong> ${major}</p>
           <p><strong>Saved Courses:</strong> ${numSaved} </p>
+          <p><strong>Reviews:</strong> ${numReviews} </p>
           <p><strong>Bio:</strong> ${bio}</p>
         `;
       }

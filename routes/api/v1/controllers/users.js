@@ -115,5 +115,15 @@ router.post('/saved', async (req, res) => {
 
 })
 
+router.get('/numReviews', async (req, res) => {
+  try {
+    const user = req.query.userId
+    const reviews = await req.models.Review.find({user: user})
+    res.json({numReviews: reviews.length})
+  } catch (err) {
+    res.status(500).json({status: "error", error: err.message})
+  }
+})
+
 
 export default router;
