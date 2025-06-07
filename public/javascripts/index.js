@@ -18,21 +18,10 @@ async function checkLoginStatus() {
 
     if (isLoggedIn && data.userInfo) {
       const { name, major = "Not provided", bio = "Not provided" } = data.userInfo;
-
-      // FUTURE WORK: display number of courses saved and num reviews made by user
       const numSaved = Array.isArray(data.userInfo.savedCourses) ? data.userInfo.savedCourses.length : 0
       const rev = await fetch(`/api/v1/user/numReviews?userId=${data.userInfo.username}`)
       const revData = await rev.json()
       const numReviews = revData.numReviews
-
-      // const userInfoDiv = document.getElementById('user-info');
-      // if (userInfoDiv) {
-      //   userInfoDiv.innerHTML = `
-      //     <p><strong>Name:</strong> ${name}</p>
-      //     <p><strong>Major:</strong> ${major}</p>
-      //     <p><strong>Bio:</strong> ${bio}</p>
-      //   `;
-      // }
 
       document.getElementById('user-name').textContent = name;
       document.getElementById('num-saved').textContent = numSaved;

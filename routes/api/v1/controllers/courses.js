@@ -18,6 +18,19 @@ router.get('/courseDetails', async (req, res) => {
     }
 })
 
+// repurposed course/ endpoint to return all coursesAdd commentMore actions
+router.get('/', async (req, res) => {
+    const coursesObj = await req.models.Class.find()
+    // const coursesJson = await coursesObj.json()
+    console.log("in allcourses endpoint")
+    // console.log(coursesObj)
+
+    // const courseJson = await coursesObj.json()
+
+    res.json(coursesObj)
+    
+})
+
 //makes the api call and saves to db if course isn't found
 router.get("/search", async(req, res) => {
     try {
