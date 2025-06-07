@@ -14,12 +14,11 @@ async function checkLoginStatus() {
 
     const isLoggedIn = data?.status === "loggedin";
 
-    const numSaved = Array.isArray(data.savedCourses.length) ? data.savedCourses.length : 0
-
     toggleLoginUI(isLoggedIn);
 
     if (isLoggedIn && data.userInfo) {
       const { name, major = "Not provided", bio = "Not provided" } = data.userInfo;
+      const numSaved = Array.isArray(data.savedCourses.length) ? data.savedCourses.length : 0
 
       const userInfoDiv = document.getElementById('user-info');
       if (userInfoDiv) {
