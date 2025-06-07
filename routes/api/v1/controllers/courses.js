@@ -20,8 +20,6 @@ router.get('/courseDetails', async (req, res) => {
 
 //makes the api call and saves to db if course isn't found
 router.get("/search", async(req, res) => {
-    console.log("in search")
-    console.log(req.query)
     try {
         let {course, department, level} = req.query
         let courseObj
@@ -42,12 +40,8 @@ router.get("/search", async(req, res) => {
 
         // mapping each course result to course object
         if (courseObj && courseObj.length > 0) {
-            console.log("mapping this course", courseObj[0])
-            console.log("found in db")
-            console.log("this is the course", courseObj)
             courseObj = courseObj.map(course => course.toObject())
             const courses = courseObj.map(course => {
-                console.log("this is the mapping inside", course)
                 return {
                     // _id: course._id,
                     courseId: course.courseId,
@@ -63,9 +57,6 @@ router.get("/search", async(req, res) => {
                 }
                 
             })
-
-            console.log("this is the mapping outside", courses)
-
            
             return res.json({course: courses, create: false})
         } else { 
@@ -113,8 +104,6 @@ router.get("/search", async(req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-
-        console.log("this is the body", req.body)
         let {
             courseId,
             courseNumber,
@@ -144,9 +133,6 @@ router.post('/', async (req, res) => {
             tags, 
             reviews
         })
-
-        console.log("this is the new course", newCourse)
-
         await newCourse.save()
         res.json({status: "success", message: "post saved"})
 
@@ -181,21 +167,15 @@ router.post('/review', async (req, res) => {
 router.get('/review', async (req, res) => {
     try {
         const course = await req.models.Class.findOne({courseId: req.query.courseId})
-        console.log("This is the course for which getting reviews", course)
         const reviewArr = await Promise.all(course.reviews.map(async review => {
             return await req.models.Review.findOne({_id: review})
         }))
-
-        console.log("arr of reviews from db", reviewArr)
 
         const reviewRes = reviewArr.map(review => (
             {
                 comment: review.comment, 
                 user: review.user
             }))
-
-        console.log("what's being sent back", reviewRes)
-
         res.json(reviewRes)
     } catch (err) {
         res.status(500).json({status: "error", error: err.message})
